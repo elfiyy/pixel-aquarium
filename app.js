@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. API BASE & CANLILAR
+   1. API BASE & CANLI TANIMLARI
    ========================================================================== */
 const API_BASE = "http://localhost:5294/api/Tanks";
 
@@ -11,7 +11,7 @@ const SPECIES_CONFIG = [
     { id: 5, name: "Koi", src: "assets/fish-5.png", type: "swim" },
     { id: 6, name: "Mor Melek", src: "assets/fish-6.png", type: "swim" },
     { id: 7, name: "Denizatı", src: "assets/fish-7.png", type: "seahorse" },
-    { id: 8, name: "Yıldız", src: "assets/fish-8.png", type: "starfish" }
+    { id: 8, name: "Denizyıldızı", src: "assets/fish-8.png", type: "starfish" }
 ];
 
 /* ==========================================================================
@@ -24,7 +24,7 @@ let currentTank = null;
 let isOwnerAuthenticated = false;
 let selectedFishId = null;
 
-// DOM Referansları
+// DOM Elemanları
 const fishCanvas = document.getElementById("fishCanvas");
 const fishCounter = document.getElementById("fishCounter");
 const tankStatusTag = document.getElementById("tankStatusTag");
@@ -113,8 +113,15 @@ function renderTank() {
             const el = document.createElement("div");
             el.className = `fish-sprite fish-type-${meta.type}`;
             el.id = `fish-node-${fish.id}`;
-            el.style.left = `${fish.x}%`;
-            el.style.top = `${fish.y}%`;
+
+            // Denizyıldızı tabandaki kumun üzerine yerleşir
+            if (meta.type === "starfish") {
+                el.style.left = `45%`;
+                el.style.top = `83%`;
+            } else {
+                el.style.left = `${fish.x}%`;
+                el.style.top = `${fish.y}%`;
+            }
 
             if (!fish.speedX) {
                 fish.speedX = 0.035 + Math.random() * 0.02;
@@ -127,7 +134,6 @@ function renderTank() {
             img.alt = fish.sender;
             el.appendChild(img);
 
-            // Balığa Tıklanıldığında
             el.addEventListener("click", () => {
                 if (!isOwnerAuthenticated) {
                     alert("🔒 Bu balıktaki notu sadece akvaryum sahibi giriş yaparak görebilir!");
@@ -156,14 +162,17 @@ function movementLoop() {
             const el = document.getElementById(`fish-node-${fish.id}`);
             if (!el) return;
 
+            // Denizyıldızı akvaryum dibinde durur, yüzmez
             if (meta.type === "starfish") return;
 
+            // Denizatı tatlı salınım yapar
             if (meta.type === "seahorse") {
                 const osc = Math.sin(Date.now() / 650) * 0.35;
                 el.style.top = `${fish.y + osc}%`;
                 return;
             }
 
+            // Normal balıklar
             fish.x += fish.speedX * fish.dirX;
             fish.y += fish.speedY;
 
@@ -172,7 +181,7 @@ function movementLoop() {
 
             el.style.transform = fish.dirX === 1 ? "scaleX(-1)" : "scaleX(1)";
 
-            if (fish.y > 50 || fish.y < 16) fish.speedY = -fish.speedY;
+            if (fish.y > 60 || fish.y < 16) fish.speedY = -fish.speedY;
 
             el.style.left = `${fish.x}%`;
             el.style.top = `${fish.y}%`;
@@ -182,13 +191,9 @@ function movementLoop() {
 }
 
 /* ==========================================================================
-   6. BUTONLAR VE API ETKİLEŞİMLERİ
+   6. API VE BUTON İŞLEMLERİ
    ========================================================================== */
-
-// Rehber Açılışı
 infoButton.addEventListener("click", () => infoModal.classList.add("show"));
-
-// Akvaryum Oluşturma
 createButton.addEventListener("click", () => createModal.classList.add("show"));
 
 createAquariumSubmit.addEventListener("click", async () => {
@@ -217,7 +222,6 @@ createAquariumSubmit.addEventListener("click", async () => {
     }
 });
 
-// Akvaryuma Giriş Yap (Ad + Şifre)
 loginButton.addEventListener("click", () => loginModal.classList.add("show"));
 
 loginAquariumSubmit.addEventListener("click", async () => {
@@ -250,14 +254,13 @@ loginAquariumSubmit.addEventListener("click", async () => {
         if (data.isFull) {
             alert("Giriş başarılı! 8 balığın tamamlanmış, canlılara tıklayarak notlarını okuyabilirsin!");
         } else {
-            alert(`Giriş başarılı! Şu an ${data.fishes.length}/8 canlı var. 8 canlı olduğunda notlar açılacak.`);
+            alert(`Giriş başarılı! Şu an ${data.fishes.length}/8 canlı var. 8 canlı dolduğunda notlar açılacak.`);
         }
     } catch (err) {
         alert("Giriş yapılamadı!");
     }
 });
 
-// Canlı Torbası / Balık Bırakma
 addFishButton.addEventListener("click", () => {
     if (!currentTankCode) return alert("Önce bir akvaryum oluşturmalı veya bir linke girmelisin!");
     if (currentTank && currentTank.fishes && currentTank.fishes.length >= 8) {
@@ -277,10 +280,11 @@ dropFishSubmit.addEventListener("click", async () => {
 
     const meta = SPECIES_CONFIG.find(s => s.id === selectedFishId);
     let startX = Math.floor(Math.random() * 40) + 25;
-    let startY = Math.floor(Math.random() * 20) + 20;
+    let startY = Math.floor(Math.random() * 25) + 20;
 
-    if (meta.type === "starfish") { startX = 44; startY = 67; }
-    else if (meta.type === "seahorse") { startX = 20; startY = 44; }
+    // Denizyıldızı akvaryum tabanına yerleşir
+    if (meta.type === "starfish") { startX = 45; startY = 83; }
+    else if (meta.type === "seahorse") { startX = 22; startY = 46; }
 
     try {
         const res = await fetch(`${API_BASE}/${currentTankCode}/fishes`, {
@@ -309,14 +313,12 @@ dropFishSubmit.addEventListener("click", async () => {
     }
 });
 
-// Bağlantıyı Paylaş
 shareTankButton.addEventListener("click", () => {
     if (!currentTankCode) return alert("Paylaşmak için önce bir akvaryum oluşturmalısın!");
     navigator.clipboard.writeText(window.location.href);
-    alert("Akvaryum bağlantın kopyalandı! Arkadaşlarına atıp sana not bırakmalarını isteyebilirsin.");
+    alert("Akvaryum bağlantın kopyalandı! Sevdiklerine göndererek not bırakmalarını isteyebilirsin.");
 });
 
-// Modal Kapatıcıları & Seçimler
 fishOptions.forEach(btn => {
     btn.addEventListener("click", () => {
         if (btn.classList.contains("disabled")) return;
@@ -336,6 +338,5 @@ closeButtons.forEach(btn => {
     m.addEventListener("click", e => { if (e.target === m) m.classList.remove("show"); });
 });
 
-// Başlat
 loadTank();
 requestAnimationFrame(movementLoop);

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <!-- ÜST MENÜ (NAVBAR) -->
+    <!-- ÜST MENÜ -->
     <header class="top-nav">
         <div class="brand-container">
             <img src="assets/logo.png" alt="Dear Fish Logo" class="brand-logo" id="brandLogo">
@@ -25,7 +25,7 @@
         </div>
     </header>
 
-    <!-- ANA İÇERİK -->
+    <!-- ANA ALAN -->
     <main class="main-container">
         <div class="tank-header">
             <div class="sub-heading">PIXEL MESAJ AKVARYUMU</div>
@@ -40,17 +40,16 @@
             </div>
         </div>
 
-        <!-- AKVARYUM VE YAN TORBA ALANI -->
+        <!-- AKVARYUM VE YAN TORBA SAHNESİ -->
         <div class="stage-container">
             <div class="aquarium-outer">
                 <div class="aquarium-glass">
-                    <!-- Katmanlı Akvaryum Arka Planı -->
                     <img src="assets/tank-base.png" alt="Zemin" class="tank-layer layer-base">
-                    <img src="assets/decorations.png" alt="Mercanlar ve Bitkiler" class="tank-layer layer-decor">
-                    <img src="assets/tank.png" alt="Akvaryum İçi" class="tank-layer layer-tank">
+                    <img src="assets/decorations.png" alt="Dekorasyonlar" class="tank-layer layer-decor">
+                    <img src="assets/tank.png" alt="Akvaryum Çerçevesi" class="tank-layer layer-tank">
 
                     <div class="fish-canvas" id="fishCanvas">
-                        <!-- Canlılar buraya gelecek -->
+                        <!-- Canlılar buraya yerleşir -->
                     </div>
                 </div>
             </div>
@@ -72,9 +71,7 @@
         </div>
     </main>
 
-    <!-- =================================================
-         MODAL 1: DEAR FISH NEDİR? (MODERN YAZI TİPİ)
-    ================================================== -->
+    <!-- MODAL 1: DEAR FISH NEDİR? -->
     <div class="modal" id="infoModal">
         <div class="modal-box modern-modal-box">
             <button class="close-button" data-close="infoModal">×</button>
@@ -94,14 +91,14 @@
                     <span class="step-num">2</span>
                     <div>
                         <strong>Bağlantını Paylaş:</strong>
-                        <p>Oluşan linki arkadaşlarına veya sevdiklerine gönderip sana mesaj bırakmalarını istersin.</p>
+                        <p>Oluşan linki arkadaşlarına gönderip sana gizli not bırakmalarını istersin.</p>
                     </div>
                 </div>
                 <div class="info-step">
                     <span class="step-num">3</span>
                     <div>
                         <strong>Gizli Canlılar ve Notlar:</strong>
-                        <p>Arkadaşların sağdaki torbadan bir canlı seçip not yazar. Her canlı akvaryumda yüzmeye başlar fakat notlar gizli kalır.</p>
+                        <p>Arkadaşların sağdaki torbadan bir canlı seçip not yazar. Canlılar akvaryumda yüzmeye başlar fakat notlar gizli kalır.</p>
                     </div>
                 </div>
                 <div class="info-step">
@@ -116,9 +113,7 @@
         </div>
     </div>
 
-    <!-- =================================================
-         MODAL 2: YENİ AKVARYUM OLUŞTUR
-    ================================================== -->
+    <!-- MODAL 2: YENİ AKVARYUM OLUŞTUR -->
     <div class="modal" id="createModal">
         <div class="modal-box">
             <button class="close-button" data-close="createModal">×</button>
@@ -136,9 +131,7 @@
         </div>
     </div>
 
-    <!-- =================================================
-         MODAL 3: AKVARYUMA GİRİŞ YAP
-    ================================================== -->
+    <!-- MODAL 3: AKVARYUMA GİRİŞ YAP -->
     <div class="modal" id="loginModal">
         <div class="modal-box">
             <button class="close-button" data-close="loginModal">×</button>
@@ -156,15 +149,13 @@
         </div>
     </div>
 
-    <!-- =================================================
-         MODAL 4: CANLI & NOT BIRAK
-    ================================================== -->
+    <!-- MODAL 4: CANLI & NOT BIRAK -->
     <div class="modal" id="fishModal">
         <div class="modal-box">
             <button class="close-button" data-close="fishModal">×</button>
             <div class="modal-title">NOTUNU BIRAK</div>
             <h2>Akvaryuma Canlı Ekle</h2>
-            <p class="modal-text">Boş bir deniz canlısı seç ve akvaryum sahibine gizli notunu yaz.</p>
+            <p class="modal-text">Boş bir canlı seç ve akvaryum sahibine gizli notunu yaz.</p>
 
             <div class="fish-picker-grid">
                 <button class="fish-option" data-id="1"><img src="assets/fish-1.png" alt="Palyaço Balığı"><span>Palyaço</span></button>
@@ -178,7 +169,7 @@
             </div>
 
             <label for="fishSenderName">Adın / Takma Adın</label>
-            <input id="fishSenderName" type="text" placeholder="Örn: Elif" maxlength="30">
+            <input id="fishSenderName" type="text" placeholder="Örn: Ziyaretçi" maxlength="30">
 
             <label for="fishNote">Gizli Notun</label>
             <textarea id="fishNote" rows="3" placeholder="8 canlı dolduğunda sahibine iletilecek not..." maxlength="200"></textarea>
@@ -187,9 +178,7 @@
         </div>
     </div>
 
-    <!-- =================================================
-         MODAL 5: NOT OKUMA
-    ================================================== -->
+    <!-- MODAL 5: NOT OKUMA -->
     <div class="modal" id="readModal">
         <div class="modal-box">
             <button class="close-button" data-close="readModal">×</button>

@@ -14,7 +14,7 @@ body {
 }
 
 /* ==========================================================================
-   ÜST MENÜ, BÜYÜK LOGO VE LOGOYLA AYNI VIBE'DAKI REHBER BUTONU
+   ÜST MENÜ & LOGO
    ========================================================================== */
 .top-nav {
     display: flex;
@@ -43,7 +43,6 @@ body {
         transform: scale(1.05);
     }
 
-/* Logo ile birebir aynı el çizimi dokuda, oval turkuaz buton */
 .info-link-button {
     background-color: #8ed8d8;
     border: 2.5px dashed #143538;
@@ -63,11 +62,6 @@ body {
         background-color: #79cece;
         transform: translateY(-2px) rotate(-1deg);
         box-shadow: 2px 5px 0 rgba(20, 53, 56, 0.25);
-    }
-
-    .info-link-button:active {
-        transform: translateY(1px);
-        box-shadow: none;
     }
 
 .nav-buttons {
@@ -101,7 +95,7 @@ body {
 }
 
 /* ==========================================================================
-   BAŞLIK VE ETİKETLER
+   BAŞLIK & BİLGİ
    ========================================================================== */
 .main-container {
     max-width: 1140px;
@@ -165,7 +159,7 @@ body {
 }
 
 /* ==========================================================================
-   AKVARYUM VE SAĞ YAN TORBA SAHNESİ
+   AKVARYUM (GEREKSİZ ÇERÇEVELER KALDIRILMIŞ ŞEFFAF YAPI)
    ========================================================================== */
 .stage-container {
     display: flex;
@@ -178,13 +172,12 @@ body {
 
 .aquarium-outer {
     width: 100%;
-    max-width: 720px;
+    max-width: 680px;
     aspect-ratio: 4 / 3;
-    background-color: #e0d7c5;
-    padding: 12px;
-    border: 4px solid #8e959e;
-    border-bottom-width: 12px;
-    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.08);
+    background: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
     position: relative;
 }
 
@@ -193,18 +186,17 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: 2px solid #5d6770;
-    background-color: #b7e9f7;
+    border: none;
+    background: transparent;
 }
 
-/* Katmanlı Görseller */
 .tank-layer {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     image-rendering: pixelated;
     user-select: none;
     pointer-events: none;
@@ -306,7 +298,7 @@ body {
     }
 
 /* ==========================================================================
-   BALIK SPRİTE'LARI
+   CANLI SPRITE'LARI
    ========================================================================== */
 .fish-sprite {
     position: absolute;
@@ -361,7 +353,6 @@ body {
     overflow-y: auto;
 }
 
-/* Modern rehber modalı */
 .modern-modal-box {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     max-width: 500px;
@@ -449,10 +440,6 @@ body {
     transition: background-color 0.2s;
 }
 
-    .modern-modal-btn:hover {
-        background-color: #3b7b86;
-    }
-
 .close-button {
     position: absolute;
     top: 10px;
@@ -519,7 +506,6 @@ body {
         box-shadow: 1px 1px 0 #2b2b2b;
     }
 
-/* Balık Seçim Izgarası */
 .fish-picker-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -576,7 +562,6 @@ body {
     color: #888;
 }
 
-/* Mobil Uyum */
 @media (max-width: 920px) {
     .stage-container {
         flex-direction: column;
