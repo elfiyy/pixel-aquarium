@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. API BASE & CANLI TANIMLARI
+   1. API BASE & CANLILAR
    ========================================================================== */
 const API_BASE = "http://localhost:5294/api/Tanks";
 
@@ -49,7 +49,7 @@ const closeButtons = document.querySelectorAll("[data-close]");
 const fishOptions = document.querySelectorAll(".fish-option");
 
 /* ==========================================================================
-   3. VERİ ÇEKME & SAYFA YÖNETİMİ
+   3. VERİ YÜKLEME
    ========================================================================== */
 async function loadTank() {
     if (!currentTankCode) {
@@ -68,7 +68,7 @@ async function loadTank() {
 
         currentTank = await res.json();
         tankTitle.innerText = currentTank.title;
-        tankDesc.innerText = `Akvaryum Kodu: ${currentTank.code} - Sağdaki torbaya tıklayarak canlı ve gizli not bırakabilirsin!`;
+        tankDesc.innerText = `Akvaryum Kodu: ${currentTank.code} - Sağdaki torbadan canlı seçip gizli notunu bırakabilirsin!`;
         renderTank();
     } catch (err) {
         alert("Akvaryum bulunamadı veya sunucu kapalı!");
@@ -213,7 +213,7 @@ createAquariumSubmit.addEventListener("click", async () => {
         createModal.classList.remove("show");
         window.location.search = `?tank=${data.tankCode}`;
     } catch (err) {
-        alert("Sunucu hatası!");
+        alert("Sunucuya bağlanılamadı!");
     }
 });
 
