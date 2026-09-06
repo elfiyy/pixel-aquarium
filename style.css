@@ -1,511 +1,484 @@
-﻿/* ==========================================================================
-   1. RESET VE RESPONSIVE TEMEL AYARLAR
-   ========================================================================== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html, body {
-  width: 100%;
-  min-height: 100%;
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Press Start 2P', monospace;
-  background-color: #f7f5ed;
-  color: #233446;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 40px;
-  overflow-x: hidden;
+    background-color: #f7f3ea;
+    font-family: 'Press Start 2P', monospace;
+    color: #2b2b2b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ==========================================================================
-   2. HEADER & LOGO
+   ÜST MENÜ & BÜYÜTÜLMÜŞ LOGO
    ========================================================================== */
-.header {
-  width: 100%;
-  max-width: 860px;
-  padding: 16px 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #e2ded2;
-  gap: 12px;
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 28px;
+    border-bottom: 2px solid #e2dac8;
+    background-color: #fbf8f1;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-/* Logo Belirgin Şekilde Büyütüldü */
-.logo img {
-  height: clamp(52px, 8vw, 76px);
-  width: auto;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  display: block;
+.brand-logo {
+    height: 64px; /* Belirgin ve büyük logo */
+    width: auto;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transition: transform 0.2s ease;
 }
 
-.header-buttons {
-  display: flex;
-  gap: 8px;
+    .brand-logo:hover {
+        transform: scale(1.05);
+    }
+
+.info-link-button {
+    background: transparent;
+    border: 2px dashed #6aa4a0;
+    color: #4a7c78;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
 }
 
-.header-button {
-  font-family: inherit;
-  font-size: clamp(7px, 1.8vw, 9px);
-  padding: 10px 14px;
-  background-color: #fff;
-  border: 2px solid #233446;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 3px 0 #233446;
-  transition: all 0.08s ease;
-  white-space: nowrap;
+    .info-link-button:hover {
+        background: #e6f2f1;
+        color: #265551;
+    }
+
+.nav-buttons {
+    display: flex;
+    gap: 12px;
 }
 
-.header-button:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 #233446;
+.nav-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 10px 14px;
+    border: 2px solid #2b2b2b;
+    box-shadow: 2px 2px 0 #2b2b2b;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
-.header-button.create {
-  background-color: #72b6c7;
-  color: #fff;
-  border-color: #1a4150;
-  box-shadow: 0 3px 0 #1a4150;
+    .nav-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0 0 0 #2b2b2b;
+    }
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: #2b2b2b;
+}
+
+.btn-primary {
+    background-color: #48929e;
+    color: #ffffff;
 }
 
 /* ==========================================================================
-   3. ANA TANITIM ALANI
+   BAŞLIK & ETİKETLER
    ========================================================================== */
-.main {
-  width: 100%;
-  max-width: 640px;
-  padding: 20px 16px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
+.main-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.intro {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
+.tank-header {
+    text-align: center;
+    margin-bottom: 24px;
 }
 
-.mini-title {
-  font-size: clamp(8px, 2vw, 10px);
-  color: #5c758a;
-  letter-spacing: 1px;
+.sub-heading {
+    font-size: 10px;
+    color: #728494;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
 }
 
-.intro h1 {
-  font-size: clamp(12px, 3.2vw, 16px);
-  line-height: 1.6;
-  color: #172c3c;
-  word-break: break-word;
+.tank-title {
+    font-size: 22px;
+    color: #1f2d3d;
+    margin-bottom: 10px;
 }
 
-.intro p {
-  font-size: clamp(7.5px, 2vw, 9px);
-  line-height: 1.8;
-  color: #546876;
-  max-width: 500px;
+.tank-desc {
+    font-size: 9px;
+    line-height: 1.8;
+    color: #637282;
+    max-width: 600px;
+    margin: 0 auto 16px;
 }
 
-.progress-box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  align-items: center;
-  font-size: clamp(7px, 1.8vw, 8.5px);
-  margin-top: 4px;
+.badges-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.progress-box span {
-  background-color: #e8e3d5;
-  padding: 7px 12px;
-  border-radius: 4px;
-  border: 1px solid #bfb7a1;
+.badge {
+    font-size: 9px;
+    padding: 8px 12px;
+    border: 2px solid #2b2b2b;
+    border-radius: 4px;
+    background-color: #f1ebd9;
 }
 
-.status-tag {
-  background-color: #fbe3de !important;
-  color: #b54737;
-  border-color: #df9e93 !important;
+.badge-locked {
+    background-color: #f9e2df;
+    color: #923429;
 }
 
-.status-tag.unlocked {
-  background-color: #def6e4 !important;
-  color: #2b7a42;
-  border-color: #92d9a6 !important;
+.badge.unlocked {
+    background-color: #ddf3e4;
+    color: #226b37;
 }
 
 /* ==========================================================================
-   4. AKVARYUM SAHNESİ & BÜYÜTÜLMÜŞ BALIKLAR
+   SAHNE VE BALIK TORBASI YERLEŞİMİ
    ========================================================================== */
-.aquarium-area {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+.stage-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 24px;
 }
 
-.aquarium {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  background-color: transparent;
+.aquarium-outer {
+    width: 100%;
+    max-width: 740px;
+    aspect-ratio: 4 / 3;
+    background-color: #e0d7c5;
+    padding: 14px;
+    border: 4px solid #8e959e;
+    border-bottom-width: 12px;
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
-.layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  pointer-events: none !important;
+.aquarium-glass {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 2px solid #5d6770;
+    background-color: #96dbe6;
 }
 
-.tank-base   { z-index: 1; }
-.decorations { z-index: 4; }
-.tank-glass  { z-index: 5; }
-
-/* Baloncuklar */
-.bubble-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none !important;
+.tank-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    user-select: none;
+    pointer-events: none;
 }
 
-.bubbles {
-  position: absolute;
-  image-rendering: pixelated;
-  opacity: 0;
-}
-
-.bubble-1 { width: 3.5%; left: 16%; bottom: 8%; animation: rise 4.4s infinite linear; }
-.bubble-2 { width: 5.5%; left: 38%; bottom: 6%; animation: rise 5.6s infinite linear 1.2s; }
-.bubble-3 { width: 3%;   left: 54%; bottom: 9%; animation: rise 3.8s infinite linear 0.4s; }
-.bubble-4 { width: 6%;   left: 76%; bottom: 5%; animation: rise 5.0s infinite linear 2s; }
-
-@keyframes rise {
-  0%   { transform: translateY(0) translateX(0); opacity: 0; }
-  15%  { opacity: 0.85; }
-  50%  { transform: translateY(-45cqh) translateX(3px); }
-  85%  { opacity: 0.85; }
-  100% { transform: translateY(-88cqh) translateX(-3px); opacity: 0; }
-}
-
-/* Balıkların Tuvali */
 .fish-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
 }
 
-/* Balık Boyutları Belirgin Biçimde Büyütüldü */
-.fish-sprite {
-  position: absolute;
-  width: 13.5%;
-  aspect-ratio: 1;
-  pointer-events: auto !important;
-  cursor: pointer;
-  transform-origin: center center;
-  transition: filter 0.15s ease;
+/* SAĞ TORBA BUTONU */
+.side-bag-wrapper {
+    position: absolute;
+    right: calc(50% - 470px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.fish-sprite img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  display: block;
+.bag-drop-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease;
 }
 
-.fish-sprite:hover {
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.95));
+    .bag-drop-button:hover {
+        transform: translateY(-4px) scale(1.05);
+    }
+
+.bag-sprite {
+    width: 90px;
+    height: auto;
+    image-rendering: pixelated;
+    filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.15));
+}
+
+.bag-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    background: #ffffff;
+    padding: 6px 10px;
+    border: 2px solid #2b2b2b;
+    box-shadow: 2px 2px 0 #2b2b2b;
+    border-radius: 4px;
+    color: #2b2b2b;
 }
 
 /* ==========================================================================
-   5. BUTONLAR: GÖRSEL BUTON & PAYLAŞ
+   ORTALANMIŞ PAYLAŞMA BUTONU
    ========================================================================== */
-.aquarium-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  width: 100%;
-  max-width: 480px;
+.share-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
-/* Kendi Çizdiğin Balık Bırak Görseli Buton Olarak Kullanıldı */
-.add-fish-img-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.08s ease;
+.share-action-button {
+    background-color: #d18d84;
+    color: #ffffff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    padding: 14px 28px;
+    border: 3px solid #2b2b2b;
+    box-shadow: 4px 4px 0 #2b2b2b;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
-.add-fish-img-btn img {
-  width: clamp(140px, 36vw, 190px);
-  height: auto;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  display: block;
-}
+    .share-action-button:hover {
+        background-color: #c77b71;
+    }
 
-.add-fish-img-btn:active {
-  transform: translateY(3px);
-}
-
-.share-btn {
-  font-family: inherit;
-  font-size: clamp(8px, 2vw, 10px);
-  padding: clamp(12px, 2.5vw, 15px) clamp(14px, 3vw, 20px);
-  border: 2px solid #632b23;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #e8a598;
-  color: #fff;
-  box-shadow: 0 4px 0 #632b23;
-  transition: all 0.08s ease;
-  white-space: nowrap;
-}
-
-.share-btn:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 #632b23;
-}
+    .share-action-button:active {
+        transform: translate(3px, 3px);
+        box-shadow: 1px 1px 0 #2b2b2b;
+    }
 
 /* ==========================================================================
-   6. MODALLAR VE POP-UPLAR (MOBİL UYUMLU)
+   BALIK SPRİTE'LARI
+   ========================================================================== */
+.fish-sprite {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease;
+}
+
+    .fish-sprite:hover {
+        filter: drop-shadow(0 0 6px #fff);
+    }
+
+    .fish-sprite img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        image-rendering: pixelated;
+    }
+
+/* ==========================================================================
+   MODAL PENCERELERİ
    ========================================================================== */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(18, 28, 38, 0.68);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  padding: 16px;
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 }
 
-.modal.show {
-  display: flex;
-}
+    .modal.show {
+        display: flex;
+    }
 
 .modal-box {
-  position: relative;
-  background-color: #fffdf9;
-  border: 3px solid #233446;
-  border-radius: 8px;
-  padding: 22px 16px;
-  width: 100%;
-  max-width: 380px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    background-color: #ffffff;
+    border: 4px solid #2b2b2b;
+    box-shadow: 6px 6px 0 #2b2b2b;
+    padding: 24px;
+    max-width: 460px;
+    width: 100%;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .close-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #e8a598;
-  border: 2px solid #233446;
-  color: #fff;
-  font-family: inherit;
-  font-size: 11px;
-  padding: 4px 7px;
-  cursor: pointer;
-  border-radius: 4px;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .modal-title {
-  font-size: 8.5px;
-  color: #72b6c7;
-  letter-spacing: 1px;
+    font-size: 9px;
+    color: #728494;
+    margin-bottom: 6px;
 }
 
 .modal-box h2 {
-  font-size: clamp(10px, 2.5vw, 12px);
-  color: #233446;
-  line-height: 1.4;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
 
 .modal-text {
-  font-size: 8px;
-  line-height: 1.6;
-  color: #5c758a;
+    font-size: 9px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.info-guide-content p {
+    font-size: 9px;
+    line-height: 1.8;
+    color: #3b4b59;
+    margin-bottom: 12px;
+    padding-left: 4px;
 }
 
 .modal-box label {
-  font-size: 8px;
-  color: #233446;
-  margin-top: 2px;
+    display: block;
+    font-size: 9px;
+    margin: 12px 0 6px;
+    color: #333;
 }
 
-.modal-box input, .modal-box textarea {
-  font-family: inherit;
-  font-size: 8.5px;
-  padding: 10px;
-  border: 2px solid #bfb7a1;
-  border-radius: 4px;
-  background-color: #fdfbf7;
-  color: #233446;
-  outline: none;
-  width: 100%;
-}
-
+.modal-box input,
 .modal-box textarea {
-  resize: none;
-  height: 55px;
-  line-height: 1.5;
+    width: 100%;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 10px;
+    border: 2px solid #2b2b2b;
+    outline: none;
+    background-color: #fbfbfb;
+    margin-bottom: 8px;
 }
 
 .modal-button {
-  font-family: inherit;
-  font-size: 9px;
-  padding: 12px;
-  background-color: #72b6c7;
-  color: #fff;
-  border: 2px solid #1a4150;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 0 #1a4150;
-  margin-top: 6px;
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    background-color: #48929e;
+    color: #ffffff;
+    border: 2px solid #2b2b2b;
+    box-shadow: 3px 3px 0 #2b2b2b;
+    cursor: pointer;
 }
 
-.modal-button:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #1a4150;
-}
+    .modal-button:active {
+        transform: translate(2px, 2px);
+        box-shadow: 1px 1px 0 #2b2b2b;
+    }
 
 /* Balık Seçim Izgarası */
-.fish-options {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  background-color: #eee9dc;
-  padding: 8px;
-  border: 2px solid #bfb7a1;
-  border-radius: 6px;
+.fish-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .fish-option {
-  aspect-ratio: 1;
-  border: 2px solid #bfb7a1;
-  border-radius: 4px;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 3px;
+    border: 2px solid #cfd7de;
+    background-color: #f7f9fa;
+    padding: 8px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
-.fish-option img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  image-rendering: pixelated;
+    .fish-option img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        image-rendering: pixelated;
+    }
+
+    .fish-option span {
+        font-size: 7px;
+        color: #555;
+    }
+
+    .fish-option.selected {
+        border-color: #2b2b2b;
+        background-color: #dbeff2;
+    }
+
+    .fish-option.disabled {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+.modal-quote {
+    font-size: 10px;
+    line-height: 1.8;
+    color: #1f2d3d;
+    background-color: #f5f3ec;
+    padding: 12px;
+    border-left: 4px solid #48929e;
+    margin-bottom: 10px;
 }
 
-.fish-option.selected {
-  border-color: #233446;
-  background-color: #c9e8ee;
-  box-shadow: inset 0 0 0 2px #233446;
-}
-
-.fish-option.disabled {
-  opacity: 0.25;
-  cursor: not-allowed;
-  filter: grayscale(100%);
-}
-
-.read-note-body {
-  font-size: 9px;
-  line-height: 1.7;
-  background-color: #f7f5ed;
-  padding: 14px;
-  border: 2px dashed #bfb7a1;
-  border-radius: 6px;
-  color: #172c3c;
-}
-
-.read-note-date {
-  font-size: 7.5px;
-  color: #8c9ba5;
-  text-align: right;
+.modal-date {
+    font-size: 8px;
+    color: #888;
 }
 
 /* ==========================================================================
-   7. MOBİL CİHAZ OPTİMİZASYONU (MEDIA QUERY)
+   MOBİL UYUMLULUK
    ========================================================================== */
-@media (max-width: 480px) {
-  .header {
-    padding: 12px 14px;
-  }
+@media (max-width: 950px) {
+    .stage-container {
+        flex-direction: column;
+    }
 
-  .header-buttons {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .header-button {
-    padding: 7px 10px;
-  }
-
-  .aquarium-actions {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
-
-  .share-btn {
-    width: 80%;
-    text-align: center;
-    padding: 12px;
-  }
+    .side-bag-wrapper {
+        position: static;
+        margin-top: 16px;
+    }
 }

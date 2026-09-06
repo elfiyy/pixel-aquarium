@@ -1,17 +1,17 @@
 /* ==========================================================================
-   1. API ADRESİ & CANLILAR
+   1. API BASE & CANLI TANIMLARI
    ========================================================================== */
 const API_BASE = "http://localhost:5294/api/Tanks";
 
 const SPECIES_CONFIG = [
-    { id: 1, name: "Palyaço Balığı", src: "assets/fish-1.png", type: "swim" },
+    { id: 1, name: "Palyaço", src: "assets/fish-1.png", type: "swim" },
     { id: 2, name: "Mavi Balık", src: "assets/fish-2.png", type: "swim" },
-    { id: 3, name: "Çizgili Balık", src: "assets/fish-3.png", type: "swim" },
-    { id: 4, name: "Pembe Balık", src: "assets/fish-4.png", type: "swim" },
-    { id: 5, name: "Koi Balığı", src: "assets/fish-5.png", type: "swim" },
+    { id: 3, name: "Çizgili", src: "assets/fish-3.png", type: "swim" },
+    { id: 4, name: "Pembe", src: "assets/fish-4.png", type: "swim" },
+    { id: 5, name: "Koi", src: "assets/fish-5.png", type: "swim" },
     { id: 6, name: "Mor Melek", src: "assets/fish-6.png", type: "swim" },
     { id: 7, name: "Denizatı", src: "assets/fish-7.png", type: "seahorse" },
-    { id: 8, name: "Denizyıldızı", src: "assets/fish-8.png", type: "starfish" }
+    { id: 8, name: "Yıldız", src: "assets/fish-8.png", type: "starfish" }
 ];
 
 /* ==========================================================================
@@ -24,18 +24,20 @@ let currentTank = null;
 let isOwnerAuthenticated = false;
 let selectedFishId = null;
 
-// DOM Elemanları
+// DOM Referansları
 const fishCanvas = document.getElementById("fishCanvas");
 const fishCounter = document.getElementById("fishCounter");
 const tankStatusTag = document.getElementById("tankStatusTag");
 const tankTitle = document.getElementById("tankTitle");
 const tankDesc = document.getElementById("tankDesc");
 
+const infoModal = document.getElementById("infoModal");
 const createModal = document.getElementById("createModal");
 const loginModal = document.getElementById("loginModal");
 const fishModal = document.getElementById("fishModal");
 const readModal = document.getElementById("readModal");
 
+const infoButton = document.getElementById("infoButton");
 const createButton = document.getElementById("createButton");
 const loginButton = document.getElementById("loginButton");
 const addFishButton = document.getElementById("addFishButton");
@@ -47,13 +49,12 @@ const closeButtons = document.querySelectorAll("[data-close]");
 const fishOptions = document.querySelectorAll(".fish-option");
 
 /* ==========================================================================
-   3. VERİ YÜKLEME & GÖSTERİM MANTIĞI
+   3. VERİ ÇEKME & SAYFA YÖNETİMİ
    ========================================================================== */
 async function loadTank() {
-    // Eğer linkte kod YOKSA (yani kullanıcı ana sayfaya düz girdiyse)
     if (!currentTankCode) {
         tankTitle.innerText = "Pixel Mesaj Akvaryumu";
-        tankDesc.innerText = "Kendi akvaryumunu oluşturup sevdiklerinle paylaşabilir ya da mevcut akvaryumuna giriş yapabilirsin.";
+        tankDesc.innerText = "Kendi akvaryumunu kurup sevdiklerinle paylaşabilir veya giriş yapabilirsin.";
         fishCounter.innerText = "0 / 8 Canlı Bırakıldı";
         tankStatusTag.innerText = "Akvaryum Seçilmedi";
         currentTank = { fishes: [] };
@@ -61,23 +62,22 @@ async function loadTank() {
         return;
     }
 
-    // Linkte kod VARSA akvaryumu veritabanından çek
     try {
         const res = await fetch(`${API_BASE}/${currentTankCode}`);
         if (!res.ok) throw new Error();
 
         currentTank = await res.json();
         tankTitle.innerText = currentTank.title;
-        tankDesc.innerText = `Akvaryumdasın. Bir balık seçip gizli notunu bırakabilirsin!`;
+        tankDesc.innerText = `Akvaryum Kodu: ${currentTank.code} - Sağdaki torbaya tıklayarak canlı ve gizli not bırakabilirsin!`;
         renderTank();
     } catch (err) {
         alert("Akvaryum bulunamadı veya sunucu kapalı!");
-        window.location.href = window.location.pathname; // Temiz ana sayfaya dön
+        window.location.href = window.location.pathname;
     }
 }
 
 /* ==========================================================================
-   4. EKRANA ÇİZME
+   4. EKRANA BASMA (RENDER)
    ========================================================================== */
 function renderTank() {
     if (!currentTank) return;
@@ -87,14 +87,13 @@ function renderTank() {
     fishCounter.innerText = `${count} / 8 Canlı Bırakıldı`;
 
     if (count >= 8) {
-        tankStatusTag.innerText = isOwnerAuthenticated ? "🔓 Notlar Açık" : "🔒 8 Canlı Doldu (Sahibi Açabilir)";
+        tankStatusTag.innerText = isOwnerAuthenticated ? "🔓 Notlar Açık" : "🔒 8 Canlı Doldu (Şifreyle Aç)";
         tankStatusTag.classList.add("unlocked");
     } else {
         tankStatusTag.innerText = `🔒 Notlar Kilitli (${8 - count} Canlı Kaldı)`;
         tankStatusTag.classList.remove("unlocked");
     }
 
-    // Kullanılmış balıkları seçim ızgarasında kapat
     const usedFishIds = currentTank.fishes ? currentTank.fishes.map(f => f.fishId) : [];
     fishOptions.forEach(opt => {
         const id = parseInt(opt.dataset.id);
@@ -106,7 +105,6 @@ function renderTank() {
         }
     });
 
-    // Balıkları sahneye bas
     if (currentTank.fishes) {
         currentTank.fishes.forEach(fish => {
             const meta = SPECIES_CONFIG.find(s => s.id === fish.fishId);
@@ -129,12 +127,12 @@ function renderTank() {
             img.alt = fish.sender;
             el.appendChild(img);
 
-            // Balığa Tıklama
+            // Balığa Tıklanıldığında
             el.addEventListener("click", () => {
                 if (!isOwnerAuthenticated) {
-                    alert("🔒 Bu balıktaki notu sadece akvaryumun sahibi şifresiyle giriş yaparak okuyabilir!");
+                    alert("🔒 Bu balıktaki notu sadece akvaryum sahibi giriş yaparak görebilir!");
                 } else if (currentTank.fishes.length < 8) {
-                    alert("🔒 Notlar henüz kilitli! 8 canlı tamamlandığında okunabilir olacak.");
+                    alert("🔒 Notlar henüz kilitli! 8 canlı dolunca açılacak.");
                 } else {
                     document.getElementById("readSenderName").innerText = `Kimden: ${fish.sender}`;
                     document.getElementById("readNoteText").innerText = `"${fish.note}"`;
@@ -184,10 +182,13 @@ function movementLoop() {
 }
 
 /* ==========================================================================
-   6. ETKİLEŞİMLER & API ÇAĞRILARI
+   6. BUTONLAR VE API ETKİLEŞİMLERİ
    ========================================================================== */
 
-// 1. Akvaryum Oluştur
+// Rehber Açılışı
+infoButton.addEventListener("click", () => infoModal.classList.add("show"));
+
+// Akvaryum Oluşturma
 createButton.addEventListener("click", () => createModal.classList.add("show"));
 
 createAquariumSubmit.addEventListener("click", async () => {
@@ -210,21 +211,20 @@ createAquariumSubmit.addEventListener("click", async () => {
 
         const data = await res.json();
         createModal.classList.remove("show");
-        // Yeni akvaryumun linkine yönlendir
         window.location.search = `?tank=${data.tankCode}`;
     } catch (err) {
-        alert("Sunucuya bağlanılamadı!");
+        alert("Sunucu hatası!");
     }
 });
 
-// 2. Akvaryuma İsim ve Şifre ile Gir
+// Akvaryuma Giriş Yap (Ad + Şifre)
 loginButton.addEventListener("click", () => loginModal.classList.add("show"));
 
 loginAquariumSubmit.addEventListener("click", async () => {
     const name = document.getElementById("loginTankName").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
 
-    if (!name || !password) return alert("Lütfen akvaryum adı ve şifrenizi girin!");
+    if (!name || !password) return alert("Lütfen akvaryum adınızı ve şifrenizi girin!");
 
     try {
         const res = await fetch(`${API_BASE}/login`, {
@@ -244,27 +244,24 @@ loginAquariumSubmit.addEventListener("click", async () => {
         currentTankCode = data.code;
         loginModal.classList.remove("show");
 
-        // Adres çubuğunu da güncelle (sayfayı yenilemeden)
         history.pushState(null, "", `?tank=${data.code}`);
-
         renderTank();
+
         if (data.isFull) {
-            alert("Akvaryumuna giriş yaptın! 8 balığın tamamlanmış, canlılara tıklayarak notlarını okuyabilirsin!");
+            alert("Giriş başarılı! 8 balığın tamamlanmış, canlılara tıklayarak notlarını okuyabilirsin!");
         } else {
-            alert(`Akvaryumuna giriş yaptın! Henüz ${data.fishes.length}/8 canlı var. Dolduğunda notların kilidi açılacak.`);
+            alert(`Giriş başarılı! Şu an ${data.fishes.length}/8 canlı var. 8 canlı olduğunda notlar açılacak.`);
         }
     } catch (err) {
         alert("Giriş yapılamadı!");
     }
 });
 
-// 3. Canlı / Balık Bırak (Ziyaretçiler için)
+// Canlı Torbası / Balık Bırakma
 addFishButton.addEventListener("click", () => {
-    if (!currentTankCode) {
-        return alert("Önce bir akvaryum oluşturmalı veya arkadaşının akvaryum linkine girmelisin!");
-    }
+    if (!currentTankCode) return alert("Önce bir akvaryum oluşturmalı veya bir linke girmelisin!");
     if (currentTank && currentTank.fishes && currentTank.fishes.length >= 8) {
-        return alert("Bu akvaryum tamamen dolmuş! (8/8)");
+        return alert("Akvaryum tamamen dolmuş! (8/8)");
     }
     selectedFishId = null;
     fishOptions.forEach(b => b.classList.remove("selected"));
@@ -272,7 +269,7 @@ addFishButton.addEventListener("click", () => {
 });
 
 dropFishSubmit.addEventListener("click", async () => {
-    if (!selectedFishId) return alert("Lütfen bir canlı seçin!");
+    if (!selectedFishId) return alert("Lütfen bir canlı türü seçin!");
     const sender = document.getElementById("fishSenderName").value.trim();
     const note = document.getElementById("fishNote").value.trim();
 
@@ -306,20 +303,20 @@ dropFishSubmit.addEventListener("click", async () => {
         fishModal.classList.remove("show");
         document.getElementById("fishSenderName").value = "";
         document.getElementById("fishNote").value = "";
-        loadTank(); // Balığı hemen yüzdür
+        loadTank();
     } catch (err) {
         alert("Balık bırakılamadı!");
     }
 });
 
-// Paylaş Butonu
+// Bağlantıyı Paylaş
 shareTankButton.addEventListener("click", () => {
     if (!currentTankCode) return alert("Paylaşmak için önce bir akvaryum oluşturmalısın!");
     navigator.clipboard.writeText(window.location.href);
-    alert("Akvaryum linkin kopyalandı! Arkadaşlarına atarak sana not bırakmalarını isteyebilirsin.");
+    alert("Akvaryum bağlantın kopyalandı! Arkadaşlarına atıp sana not bırakmalarını isteyebilirsin.");
 });
 
-// Canlı Seçimi
+// Modal Kapatıcıları & Seçimler
 fishOptions.forEach(btn => {
     btn.addEventListener("click", () => {
         if (btn.classList.contains("disabled")) return;
@@ -329,14 +326,13 @@ fishOptions.forEach(btn => {
     });
 });
 
-// Modal Kapatma
 closeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
         document.getElementById(btn.dataset.close).classList.remove("show");
     });
 });
 
-[createModal, loginModal, fishModal, readModal].forEach(m => {
+[infoModal, createModal, loginModal, fishModal, readModal].forEach(m => {
     m.addEventListener("click", e => { if (e.target === m) m.classList.remove("show"); });
 });
 

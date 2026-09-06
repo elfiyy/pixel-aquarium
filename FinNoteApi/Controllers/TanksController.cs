@@ -26,7 +26,6 @@ namespace FinNoteApi.Controllers
         {
             var titleTrimmed = dto.Title.Trim();
 
-            // Aynı isimde akvaryum var mı kontrolü
             var exists = await _context.Tanks.AnyAsync(t => t.Title.ToLower() == titleTrimmed.ToLower());
             if (exists) return BadRequest("Bu isimde bir akvaryum zaten var, lütfen başka bir isim seçin.");
 
@@ -46,7 +45,7 @@ namespace FinNoteApi.Controllers
             return Ok(new { tankCode = tank.TankCode, title = tank.Title });
         }
 
-        // 2. Akvaryumu Getir (Ziyaretçi veya Sahip ilk açtığında - Notlar gizlidir)
+        // 2. Akvaryumu Getir
         [HttpGet("{code}")]
         public async Task<IActionResult> GetTank(string code)
         {
@@ -74,7 +73,7 @@ namespace FinNoteApi.Controllers
             });
         }
 
-        // 3. Akvaryuma İsim ve Şifre ile Giriş Yap (Notları açar)
+        // 3. Akvaryuma İsim ve Şifre ile Giriş Yap
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
@@ -85,7 +84,6 @@ namespace FinNoteApi.Controllers
             if (tank == null) return NotFound("Bu isimde bir akvaryum bulunamadı!");
             if (tank.Password != dto.Password) return Unauthorized("Şifre hatalı!");
 
-            // 8 balık dolmuşsa gerçek notları dön, dolmamışsa yine gizli dön
             bool isFull = tank.Fishes.Count >= 8;
 
             return Ok(new
@@ -116,9 +114,9 @@ namespace FinNoteApi.Controllers
                 .FirstOrDefaultAsync(t => t.TankCode == code);
 
             if (tank == null) return NotFound("Akvaryum bulunamadı.");
-            if (tank.Fishes.Count >= 8) return BadRequest("Bu akvaryum tamamen dolmuş (8/8).");
+            if (tank.Fishes.Count >= 8) return BadRequest("Bu akvaryum dolmuş (8/8).");
             if (tank.Fishes.Any(f => f.FishTypeId == dto.FishTypeId))
-                return BadRequest("Bu canlı türü bu akvaryuma daha önce bırakılmış, lütfen başka bir canlı seçin.");
+                return BadRequest("Bu canlı türü zaten eklenmiş.");
 
             var fish = new Fish
             {
