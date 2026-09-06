@@ -1,7 +1,7 @@
 /* ==========================================================================
    1. API BASE & CANLI TANIMLARI
    ========================================================================== */
-const API_BASE = "http://localhost:5294/api/Tanks";
+const API_BASE = "https://dearfish.onrender.com/api/Tanks";
 
 const SPECIES_CONFIG = [
     { id: 1, name: "Palyaço", src: "assets/fish-1.png", type: "swim" },
