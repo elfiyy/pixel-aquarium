@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FinNote - Pixel Mesaj Akvaryumu</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================
+       ÜST KISIM (HEADER)
+  ========================== -->
+  <header class="header">
+    <div class="logo">
+      <img src="assets/logo.png" alt="FinNote Logo">
+    </div>
+
+    <div class="header-buttons">
+      <button class="header-button" id="loginButton">Akvaryumuma Gir</button>
+      <button class="header-button create" id="createButton">Akvaryum Oluştur</button>
+    </div>
+  </header>
+
+  <!-- =========================
+       ANA SAYFA İÇERİĞİ
+  ========================== -->
+  <main class="main">
+    <section class="intro">
+      <div class="mini-title" id="tankSubtitle">PIXEL MESAJ AKVARYUMU</div>
+      <h1 id="tankTitle">Sevdiklerinden sana bir akvaryum dolusu mesaj.</h1>
+      <p id="tankDesc">
+        Kendi akvaryumunu oluştur, bağlantını sevdiklerinle paylaş.
+        Her biri bir canlı seçip sana küçük bir not bıraksın.
+      </p>
+      
+      <div class="progress-box">
+        <span id="fishCounter">0 / 8 Canlı Bırakıldı</span>
+        <span class="status-tag" id="tankStatusTag">🔒 Notlar Kilitli</span>
+      </div>
+    </section>
+
+    <!-- =========================
+         AKVARYUM ALANI
+    ========================== -->
+    <section class="aquarium-area">
+      <div class="aquarium" id="aquariumStage">
+        
+        <!-- KATMAN 1: TABAN SUYU VE KUM -->
+        <img class="layer tank-base" src="assets/tank-base.png" alt="Zemin">
+
+        <!-- KATMAN 2: SÜZÜLEN BALONCUKLAR -->
+        <div class="bubble-container">
+          <img class="bubbles bubble-1" src="assets/bubbles-s.png" alt="Baloncuk">
+          <img class="bubbles bubble-2" src="assets/bubbles-m.png" alt="Baloncuk">
+          <img class="bubbles bubble-3" src="assets/bubbles-s.png" alt="Baloncuk">
+          <img class="bubbles bubble-4" src="assets/bubbles-l.png" alt="Baloncuk">
+        </div>
+
+        <!-- KATMAN 3: DİNAMİK YÜZEN BALIKLAR -->
+        <div class="fish-canvas" id="fishCanvas"></div>
+
+        <!-- KATMAN 4: MERCANLAR VE ÖN DEKORLAR -->
+        <img class="layer decorations" src="assets/decorations.png" alt="Mercanlar">
+
+        <!-- KATMAN 5: EN ÖN CAM VE ÇERÇEVE -->
+        <img class="layer tank-glass" src="assets/tank.png" alt="Cam">
+
+      </div>
+
+      <!-- BUTONLAR (GÖRSEL BUTON VE PAYLAŞ BUTONU) -->
+      <div class="aquarium-actions">
+        <button class="add-fish-img-btn" id="addFishButton">
+          <img src="assets/add-fish.png" alt="Balık Bırak">
+        </button>
+        <button class="share-btn" id="shareTankButton">
+          🔗 Bağlantıyı Paylaş
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- =================================================
+       MODAL 1: AKVARYUM OLUŞTUR
+  ================================================== -->
+  <div class="modal" id="createModal">
+    <div class="modal-box">
+      <button class="close-button" data-close="createModal">×</button>
+      <div class="modal-title">AKVARYUM OLUŞTUR</div>
+      <h2>Kendi akvaryumunu oluştur</h2>
+      <p class="modal-text">
+        Akvaryumuna bir isim ver, 4 haneli şifre belirle. 
+        Sana özel bağlantıyı sevdiklerinle paylaş.
+      </p>
+
+      <label for="aquariumName">Akvaryum adı</label>
+      <input id="aquariumName" type="text" placeholder="Örn. Ece'nin Dünyası" maxlength="20">
+
+      <label for="aquariumPassword">Şifre (Notları açmak için)</label>
+      <input id="aquariumPassword" type="password" placeholder="4 Haneli Şifre" maxlength="8">
+
+      <button class="modal-button" id="createAquariumSubmit">AKVARYUMU OLUŞTUR</button>
+    </div>
+  </div>
+
+  <!-- =================================================
+       MODAL 2: AKVARYUMA GİRİŞ YAP
+  ================================================== -->
+  <div class="modal" id="loginModal">
+    <div class="modal-box">
+      <button class="close-button" data-close="loginModal">×</button>
+      <div class="modal-title">AKVARYUMA GİR</div>
+      <h2>Akvaryum sahibine özel</h2>
+      <p class="modal-text">
+        Akvaryum kodunu ve şifreni girerek kilitli notları aç.
+      </p>
+
+      <label for="aquariumCode">Akvaryum kodu</label>
+      <input id="aquariumCode" type="text" placeholder="Örn. FN-82K9">
+
+      <label for="loginPassword">Şifre</label>
+      <input id="loginPassword" type="password" placeholder="Şifren">
+
+      <button class="modal-button" id="loginAquariumSubmit">GİRİŞ YAP</button>
+    </div>
+  </div>
+
+  <!-- =================================================
+       MODAL 3: BALIK BIRAK
+  ================================================== -->
+  <div class="modal" id="fishModal">
+    <div class="modal-box fish-modal-box">
+      <button class="close-button" data-close="fishModal">×</button>
+      <div class="modal-title">CANLI BIRAK</div>
+      <h2>Bir canlı seç</h2>
+
+      <div class="fish-options" id="fishOptionsGrid">
+        <button class="fish-option" data-id="1"><img src="assets/fish-1.png" alt="Balık 1"></button>
+        <button class="fish-option" data-id="2"><img src="assets/fish-2.png" alt="Balık 2"></button>
+        <button class="fish-option" data-id="3"><img src="assets/fish-3.png" alt="Balık 3"></button>
+        <button class="fish-option" data-id="4"><img src="assets/fish-4.png" alt="Balık 4"></button>
+        <button class="fish-option" data-id="5"><img src="assets/fish-5.png" alt="Balık 5"></button>
+        <button class="fish-option" data-id="6"><img src="assets/fish-6.png" alt="Balık 6"></button>
+        <button class="fish-option" data-id="7"><img src="assets/fish-7.png" alt="Denizatı"></button>
+        <button class="fish-option" data-id="8"><img src="assets/fish-8.png" alt="Denizyıldızı"></button>
+      </div>
+
+      <label for="fishSenderName">Senin Adın</label>
+      <input id="fishSenderName" type="text" placeholder="Örn. Can" maxlength="18">
+
+      <label for="fishNote">Notun</label>
+      <textarea id="fishNote" placeholder="Akvaryuma gizli bir not bırak..." maxlength="140"></textarea>
+
+      <button class="modal-button" id="dropFishSubmit">🫧 AKVARYUMA BIRAK</button>
+    </div>
+  </div>
+
+  <!-- =================================================
+       MODAL 4: NOT OKUMA
+  ================================================== -->
+  <div class="modal" id="readModal">
+    <div class="modal-box">
+      <button class="close-button" data-close="readModal">×</button>
+      <div class="modal-title" id="readModalTitle">GİZLİ NOT</div>
+      <h2 id="readSenderName">Kimden: ...</h2>
+      <p class="read-note-body" id="readNoteText">"..."</p>
+      <span class="read-note-date" id="readNoteDate"></span>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
