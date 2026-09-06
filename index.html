@@ -16,7 +16,7 @@
         <div class="brand-container">
             <img src="assets/logo.png" alt="Dear Fish Logo" class="brand-logo" id="brandLogo">
             <button class="info-link-button" id="infoButton">
-                <span class="info-icon">?</span> Dear Fish Nedir?
+                ? dear fish nedir?
             </button>
         </div>
         <div class="nav-buttons">
@@ -44,9 +44,13 @@
         <div class="stage-container">
             <div class="aquarium-outer">
                 <div class="aquarium-glass">
-                    <img src="assets/background.png" alt="Akvaryum Tabanı" class="tank-bg">
+                    <!-- Katmanlı Akvaryum Arka Planı -->
+                    <img src="assets/tank-base.png" alt="Zemin" class="tank-layer layer-base">
+                    <img src="assets/decorations.png" alt="Mercanlar ve Bitkiler" class="tank-layer layer-decor">
+                    <img src="assets/tank.png" alt="Akvaryum İçi" class="tank-layer layer-tank">
+
                     <div class="fish-canvas" id="fishCanvas">
-                        <!-- Canlılar dinamik eklenir -->
+                        <!-- Canlılar buraya gelecek -->
                     </div>
                 </div>
             </div>
@@ -54,7 +58,7 @@
             <!-- Sağ Yan Torba Butonu -->
             <div class="side-bag-wrapper">
                 <button class="bag-drop-button" id="addFishButton" title="Balık Bırak">
-                    <img src="assets/fish-bag.png" alt="Balık Bırak Torbası" class="bag-sprite">
+                    <img src="assets/add-fish.png" alt="Balık Bırak Torbası" class="bag-sprite">
                     <span class="bag-label">Balık Bırak</span>
                 </button>
             </div>
