@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. CANLI API & ÇOKLU DİL SÖZLÜĞÜ (TR / EN)
+   1. CANLI API & DİL SÖZLÜĞÜ (TR / EN - DEAR FISH KİMLİĞİ)
    ========================================================================== */
 const API_BASE = "https://dearfish.onrender.com/api/tanks";
 
@@ -248,7 +248,7 @@ function renderTank() {
             el.className = `fish-sprite fish-type-${meta.type}`;
             el.id = `fish-node-${fish.id}`;
 
-            // Denizyıldızı CSS kuralına göre kumun üzerinde sabit kalır
+            // Denizyıldızı CSS'teki bottom: 22% kuralıyla kumun üstüne oturur
             if (meta.type === "starfish") {
                 el.style.left = `47%`;
             } else {
@@ -256,7 +256,7 @@ function renderTank() {
                 el.style.top = `${fish.y}%`;
             }
 
-            // Her balığa bağımsız derinlik katmanı
+            // Her balığa bağımsız derinlik ve hız
             if (!fish.speedX) {
                 fish.speedX = 0.025 + ((fish.fishId * 7) % 5) * 0.006;
                 fish.speedY = (((fish.fishId * 13) % 7) - 3) * 0.004;
@@ -299,8 +299,10 @@ function movementLoop() {
             const el = document.getElementById(`fish-node-${fish.id}`);
             if (!el) return;
 
+            // Denizyıldızı kumda dinlenir
             if (meta.type === "starfish") return;
 
+            // Denizatı salınımı
             if (meta.type === "seahorse") {
                 const osc = Math.sin(Date.now() / 700) * 0.4;
                 el.style.top = `${fish.y + osc}%`;
@@ -432,7 +434,7 @@ dropFishSubmit.addEventListener("click", async () => {
     let startX = 15 + Math.floor(Math.random() * 55);
     let startY = 14 + Math.floor(Math.random() * 38);
 
-    if (meta.type === "starfish") { startX = 47; startY = 65; }
+    if (meta.type === "starfish") { startX = 47; startY = 55; }
     else if (meta.type === "seahorse") { startX = 18; startY = 38; }
 
     const tempId = "temp-" + Date.now();

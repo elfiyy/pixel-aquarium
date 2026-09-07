@@ -1,6 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
-
-* {
+﻿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,7 +6,7 @@
 
 body {
     background-color: #faf6ee;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Gaegu', 'Mali', cursive, sans-serif;
     color: #1e3338;
     min-height: 100vh;
     display: flex;
@@ -22,7 +20,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
+    padding: 12px 28px;
     background-color: #fffefb;
     border-bottom: 2px dashed #dcd3be;
 }
@@ -30,31 +28,42 @@ body {
 .brand-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .brand-logo {
-    height: 64px;
+    height: 68px;
     width: auto;
     cursor: pointer;
     filter: drop-shadow(0 3px 6px rgba(27, 56, 60, 0.08));
+    transition: transform 0.2s ease;
 }
+
+    .brand-logo:hover {
+        transform: scale(1.05) rotate(-2deg);
+    }
 
 .info-doodle-btn {
     background-color: #88cbca;
     border: 2px dashed #173b3e;
     color: #173b3e;
-    font-family: 'Mali', cursive;
-    font-size: 14px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 18px;
     font-weight: 700;
-    padding: 5px 12px;
+    padding: 5px 14px;
     border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     box-shadow: 2px 2px 0 rgba(23, 59, 62, 0.2);
+    transition: all 0.15s ease;
 }
+
+    .info-doodle-btn:hover {
+        background-color: #72bebd;
+        transform: translateY(-2px);
+    }
 
 .doodle-q {
     background: #ffffff;
@@ -65,38 +74,46 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .nav-buttons {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .lang-toggle-btn {
-    font-family: 'Mali', cursive;
-    font-size: 13px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 17px;
     font-weight: 700;
     background-color: #ffffff;
     color: #1e3338;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border: 2px solid #1e3338;
-    border-radius: 14px;
+    border-radius: 16px;
     cursor: pointer;
-    box-shadow: 1.5px 1.5px 0 #1e3338;
+    box-shadow: 2px 2px 0 #1e3338;
+    transition: all 0.15s ease;
 }
 
 .doodle-btn {
-    font-family: 'Mali', cursive;
-    font-size: 13px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 18px;
     font-weight: 700;
-    padding: 7px 12px;
+    padding: 6px 16px;
     border-radius: 255px 20px 225px 20px/20px 225px 20px 255px;
     border: 2px solid #1e3338;
     cursor: pointer;
-    box-shadow: 2px 2.5px 0 #1e3338;
+    box-shadow: 2px 3px 0 #1e3338;
+    transition: all 0.15s ease;
 }
+
+    .doodle-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0 0 0 #1e3338;
+    }
 
 .btn-secondary {
     background-color: #ffffff;
@@ -114,7 +131,7 @@ body {
 .main-container {
     max-width: 1040px;
     margin: 0 auto;
-    padding: 16px 14px 40px;
+    padding: 18px 16px 40px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -123,36 +140,37 @@ body {
 
 .tank-header {
     text-align: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .tank-title {
-    font-family: 'Mali', cursive;
-    font-size: 38px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 44px;
     font-weight: 700;
     color: #183337;
     margin-bottom: 2px;
+    line-height: 1;
 }
 
 .tank-desc {
-    font-size: 13px;
+    font-family: 'Mali', 'Gaegu', cursive;
+    font-size: 14px;
     color: #556c70;
     margin-bottom: 10px;
-    max-width: 480px;
 }
 
 .badges-row {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .doodle-badge {
-    font-family: 'Mali', cursive;
-    font-size: 13px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 17px;
     font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 14px;
+    padding: 4px 14px;
+    border-radius: 16px;
     background-color: #ede5d3;
     color: #2b4549;
     border: 1.5px solid #d4c9b3;
@@ -171,14 +189,14 @@ body {
 }
 
 /* ==========================================================================
-   AKVARYUM SAHNESİ & KİLİTLİ DENİZYILDIZI
+   AKVARYUM SAHNESİ & DENİZYILDIZI KİLİDİ
    ========================================================================== */
 .stage-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .aquarium-outer {
@@ -193,7 +211,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    container-type: inline-size;
 }
 
 .tank-layer {
@@ -233,8 +250,8 @@ body {
     position: absolute;
     cursor: pointer;
     user-select: none;
-    width: 66px;
-    height: 66px;
+    width: 68px;
+    height: 68px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -248,11 +265,11 @@ body {
         image-rendering: pixelated;
     }
 
-    /* Denizyıldızı mobilde de masaüstünde de hep kumun üzerinde kalır */
+   
     .fish-sprite.fish-type-starfish {
         top: auto !important;
-        bottom: 15% !important;
-        left: 47% !important;
+        bottom: 9% !important;
+        left: 55% !important; 
         transform: none !important;
     }
 
@@ -263,27 +280,34 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+    gap: 16px;
     width: 100%;
     flex-wrap: wrap;
 }
 
 .poşet-card-btn {
     background-color: #fffefb;
-    border: 2px solid #1e3338;
+    border: 2.5px solid #1e3338;
     border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
-    box-shadow: 2.5px 3px 0 #1e3338;
-    padding: 8px 18px 8px 12px;
+    box-shadow: 3px 3.5px 0 #1e3338;
+    padding: 8px 20px 8px 14px;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     cursor: pointer;
     text-align: left;
+    transition: all 0.15s ease;
 }
 
+    .poşet-card-btn:hover {
+        background-color: #f2faf9;
+        transform: translateY(-2px);
+        box-shadow: 4px 5px 0 #1e3338;
+    }
+
 .poşet-img-wrap {
-    width: 52px;
-    height: 52px;
+    width: 58px;
+    height: 58px;
     background-color: #ebf6f5;
     border: 1.5px dashed #41828c;
     border-radius: 50%;
@@ -294,9 +318,20 @@ body {
 }
 
 .poşet-img {
-    width: 38px;
+    width: 42px;
     height: auto;
     image-rendering: pixelated;
+    animation: bagWiggle 3.2s ease-in-out infinite;
+}
+
+@keyframes bagWiggle {
+    0%, 100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-3px) rotate(-4deg);
+    }
 }
 
 .poşet-btn-text {
@@ -305,15 +340,16 @@ body {
 }
 
 .poşet-title {
-    font-family: 'Mali', cursive;
-    font-size: 19px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 24px;
     font-weight: 700;
     color: #173b3e;
     line-height: 1.1;
 }
 
 .poşet-sub {
-    font-size: 11px;
+    font-family: 'Mali', cursive;
+    font-size: 13px;
     color: #5c7477;
     margin-top: 2px;
 }
@@ -321,18 +357,24 @@ body {
 .doodle-share-btn {
     background-color: #e28e83;
     color: #ffffff;
-    font-family: 'Mali', cursive;
-    font-size: 16px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 21px;
     font-weight: 700;
-    padding: 12px 20px;
+    padding: 13px 22px;
     border-radius: 255px 20px 225px 20px/20px 225px 20px 255px;
-    border: 2px solid #1e3338;
-    box-shadow: 2.5px 3px 0 #1e3338;
+    border: 2.5px solid #1e3338;
+    box-shadow: 3px 3.5px 0 #1e3338;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    transition: all 0.15s ease;
 }
+
+    .doodle-share-btn:hover {
+        background-color: #d67f74;
+        transform: translateY(-2px);
+    }
 
 /* ==========================================================================
    MODALLER
@@ -357,8 +399,8 @@ body {
     background-color: #fffefb;
     border: 3px solid #1e3338;
     border-radius: 26px;
-    box-shadow: 4px 5px 0 #1e3338;
-    padding: 24px 20px;
+    box-shadow: 5px 6px 0 #1e3338;
+    padding: 26px 22px;
     max-width: 440px;
     width: 100%;
     position: relative;
@@ -372,26 +414,27 @@ body {
 
 .close-btn {
     position: absolute;
-    top: 12px;
-    right: 14px;
+    top: 14px;
+    right: 16px;
     background: #f1ebd9;
     border: 2px solid #1e3338;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
     cursor: pointer;
     color: #1e3338;
 }
 
 .modal-header-section h2 {
-    font-family: 'Mali', cursive;
-    font-size: 22px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 28px;
     font-weight: 700;
     color: #173b3e;
 }
 
 .modal-subtext {
+    font-family: 'Mali', cursive;
     font-size: 13px;
     color: #556c70;
     margin-top: 2px;
@@ -404,7 +447,8 @@ body {
 
     .input-group label {
         display: block;
-        font-size: 12px;
+        font-family: 'Mali', cursive;
+        font-size: 13px;
         font-weight: 600;
         margin-bottom: 4px;
         color: #2b4549;
@@ -414,7 +458,7 @@ body {
     .input-group textarea {
         width: 100%;
         padding: 10px 14px;
-        font-family: 'Outfit', sans-serif;
+        font-family: 'Mali', cursive;
         font-size: 14px;
         border: 2px solid #c8d3d5;
         border-radius: 14px;
@@ -425,15 +469,15 @@ body {
 .modal-submit-btn {
     width: 100%;
     margin-top: 10px;
-    padding: 11px;
-    font-family: 'Mali', cursive;
-    font-size: 18px;
+    padding: 10px;
+    font-family: 'Gaegu', 'Mali', cursive;
+    font-size: 21px;
     font-weight: 700;
     background-color: #41828c;
     color: #ffffff;
     border: 2px solid #1e3338;
     border-radius: 18px;
-    box-shadow: 2px 2.5px 0 #1e3338;
+    box-shadow: 2px 3px 0 #1e3338;
     cursor: pointer;
 }
 
@@ -457,22 +501,23 @@ body {
 }
 
     .fish-card-pick img {
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         object-fit: contain;
         image-rendering: pixelated;
     }
 
     .fish-card-pick span {
-        font-family: 'Mali', cursive;
-        font-size: 12px;
-        font-weight: 600;
+        font-family: 'Gaegu', 'Mali', cursive;
+        font-size: 16px;
+        font-weight: 700;
         color: #445b5e;
     }
 
     .fish-card-pick.selected {
         border-color: #173b3e;
         background-color: #e5f3f2;
+        box-shadow: 2px 2px 0 #173b3e;
     }
 
     .fish-card-pick.disabled {
@@ -501,9 +546,9 @@ body {
 .step-badge {
     background-color: #41828c;
     color: #ffffff;
-    font-family: 'Mali', cursive;
+    font-family: 'Gaegu', cursive;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -514,49 +559,72 @@ body {
 }
 
 .step-card strong {
-    font-size: 13px;
+    font-family: 'Mali', cursive;
+    font-size: 14px;
     color: #183337;
 }
 
 .step-card p {
+    font-family: 'Mali', cursive;
     font-size: 12px;
     color: #556c70;
 }
 
+.handwritten-quote-box {
+    background-color: #faf6ee;
+    border-radius: 16px;
+    padding: 16px;
+    border-left: 5px solid #41828c;
+    margin-bottom: 10px;
+}
+
+    .handwritten-quote-box p {
+        font-family: 'Mali', cursive;
+        font-size: 16px;
+        color: #183337;
+        font-style: italic;
+    }
+
+.read-date-text {
+    font-family: 'Mali', cursive;
+    font-size: 12px;
+    color: #889ea1;
+}
+
 /* ==========================================================================
-   MOBİL AYARLARI
+   MOBİL İNCE AYARLAR
    ========================================================================== */
 @media (max-width: 600px) {
     .top-nav {
-        padding: 8px 12px;
+        padding: 10px 12px;
     }
 
     .brand-logo {
-        height: 44px;
+        height: 48px;
     }
 
     .info-doodle-btn {
-        font-size: 12px;
+        font-size: 14px;
         padding: 4px 8px;
     }
 
     .doodle-btn {
-        font-size: 12px;
-        padding: 5px 8px;
+        font-size: 14px;
+        padding: 5px 10px;
     }
 
     .lang-toggle-btn {
         padding: 5px 8px;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .tank-title {
-        font-size: 30px;
+        font-size: 34px;
     }
 
     .fish-sprite {
-        width: 52px;
-        height: 52px;
+        width: 56px;
+        height: 56px;
     }
 
     .poşet-card-btn {
