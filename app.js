@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. API BASE & CANLI TANIMLARI
+   1. CANLI API BAĞLANTISI & CANLILAR
    ========================================================================== */
 const API_BASE = "https://dearfish.onrender.com/api/Tanks";
 
@@ -49,7 +49,7 @@ const closeButtons = document.querySelectorAll("[data-close]");
 const fishOptions = document.querySelectorAll(".fish-option");
 
 /* ==========================================================================
-   3. VERİ YÜKLEME
+   3. VERİ ÇEKME & YÜKLEME
    ========================================================================== */
 async function loadTank() {
     if (!currentTankCode) {
@@ -71,13 +71,12 @@ async function loadTank() {
         tankDesc.innerText = `Akvaryum Kodu: ${currentTank.code} - Sağdaki torbadan canlı seçip gizli notunu bırakabilirsin!`;
         renderTank();
     } catch (err) {
-        alert("Akvaryum bulunamadı veya sunucu kapalı!");
-        window.location.href = window.location.pathname;
+        alert("Akvaryum bulunamadı veya sunucu uyku modundan uyanıyor olabilir. Lütfen birkaç saniye sonra tekrar deneyin.");
     }
 }
 
 /* ==========================================================================
-   4. EKRANA BASMA (RENDER)
+   4. EKRANA ÇİZME (RENDER)
    ========================================================================== */
 function renderTank() {
     if (!currentTank) return;
@@ -114,7 +113,7 @@ function renderTank() {
             el.className = `fish-sprite fish-type-${meta.type}`;
             el.id = `fish-node-${fish.id}`;
 
-            // Denizyıldızı tabandaki kumun üzerine yerleşir
+            // Denizyıldızı tam akvaryum kumunun üzerine sabitlenir
             if (meta.type === "starfish") {
                 el.style.left = `45%`;
                 el.style.top = `83%`;
@@ -134,6 +133,7 @@ function renderTank() {
             img.alt = fish.sender;
             el.appendChild(img);
 
+            // Balığa Tıklama
             el.addEventListener("click", () => {
                 if (!isOwnerAuthenticated) {
                     alert("🔒 Bu balıktaki notu sadece akvaryum sahibi giriş yaparak görebilir!");
@@ -162,17 +162,16 @@ function movementLoop() {
             const el = document.getElementById(`fish-node-${fish.id}`);
             if (!el) return;
 
-            // Denizyıldızı akvaryum dibinde durur, yüzmez
+            // Denizyıldızı akvaryum tabanında durur, yüzmez
             if (meta.type === "starfish") return;
 
-            // Denizatı tatlı salınım yapar
+            // Denizatı salınımı
             if (meta.type === "seahorse") {
                 const osc = Math.sin(Date.now() / 650) * 0.35;
                 el.style.top = `${fish.y + osc}%`;
                 return;
             }
 
-            // Normal balıklar
             fish.x += fish.speedX * fish.dirX;
             fish.y += fish.speedY;
 
@@ -191,7 +190,7 @@ function movementLoop() {
 }
 
 /* ==========================================================================
-   6. API VE BUTON İŞLEMLERİ
+   6. ETKİLEŞİMLER & API ÇAĞRILARI
    ========================================================================== */
 infoButton.addEventListener("click", () => infoModal.classList.add("show"));
 createButton.addEventListener("click", () => createModal.classList.add("show"));
@@ -218,7 +217,7 @@ createAquariumSubmit.addEventListener("click", async () => {
         createModal.classList.remove("show");
         window.location.search = `?tank=${data.tankCode}`;
     } catch (err) {
-        alert("Sunucuya bağlanılamadı!");
+        alert("Sunucuya bağlanılamadı! Render sunucusu ilk istekte uyanıyor olabilir (yaklaşık 30-40 sn), lütfen bir kez daha deneyin.");
     }
 });
 
@@ -282,7 +281,6 @@ dropFishSubmit.addEventListener("click", async () => {
     let startX = Math.floor(Math.random() * 40) + 25;
     let startY = Math.floor(Math.random() * 25) + 20;
 
-    // Denizyıldızı akvaryum tabanına yerleşir
     if (meta.type === "starfish") { startX = 45; startY = 83; }
     else if (meta.type === "seahorse") { startX = 22; startY = 46; }
 

@@ -27,7 +27,7 @@ namespace FinNoteApi.Controllers
             var titleTrimmed = dto.Title.Trim();
 
             var exists = await _context.Tanks.AnyAsync(t => t.Title.ToLower() == titleTrimmed.ToLower());
-            if (exists) return BadRequest("Bu isimde bir akvaryum zaten var, lütfen başka bir isim seçin.");
+            if (exists) return BadRequest("Bu isimde bir akvaryum zaten var! Lütfen başka bir ad seçin.");
 
             var code = "FN-" + Guid.NewGuid().ToString("N")[..4].ToUpper();
 
@@ -45,7 +45,7 @@ namespace FinNoteApi.Controllers
             return Ok(new { tankCode = tank.TankCode, title = tank.Title });
         }
 
-        // 2. Akvaryumu Getir
+        // 2. Akvaryumu Getir (Ziyaretçi veya Sahip için - Notlar Kilitlidir)
         [HttpGet("{code}")]
         public async Task<IActionResult> GetTank(string code)
         {
@@ -73,7 +73,7 @@ namespace FinNoteApi.Controllers
             });
         }
 
-        // 3. Akvaryuma İsim ve Şifre ile Giriş Yap
+        // 3. Akvaryuma İsim ve Şifre ile Giriş Yap (8 balık tamamlanmışsa notlar açılır)
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
@@ -97,7 +97,7 @@ namespace FinNoteApi.Controllers
                     id = f.Id,
                     fishId = f.FishTypeId,
                     sender = f.SenderName,
-                    note = isFull ? f.NoteText : "🔒 Notlar 8 canlı tamamlandığında açılacak.",
+                    note = isFull ? f.NoteText : "🔒 Notlar 8 canlı dolduğunda açılacak.",
                     date = f.CreatedAt.ToString("dd.MM.yyyy"),
                     x = f.PosX,
                     y = f.PosY
@@ -105,7 +105,7 @@ namespace FinNoteApi.Controllers
             });
         }
 
-        // 4. Balık Bırak
+        // 4. Canlı & Not Ekle
         [HttpPost("{code}/fishes")]
         public async Task<IActionResult> AddFish(string code, [FromBody] AddFishDto dto)
         {
@@ -114,9 +114,9 @@ namespace FinNoteApi.Controllers
                 .FirstOrDefaultAsync(t => t.TankCode == code);
 
             if (tank == null) return NotFound("Akvaryum bulunamadı.");
-            if (tank.Fishes.Count >= 8) return BadRequest("Bu akvaryum dolmuş (8/8).");
+            if (tank.Fishes.Count >= 8) return BadRequest("Bu akvaryum tamamen dolmuş (8/8).");
             if (tank.Fishes.Any(f => f.FishTypeId == dto.FishTypeId))
-                return BadRequest("Bu canlı türü zaten eklenmiş.");
+                return BadRequest("Bu canlı türü bu akvaryuma zaten eklenmiş.");
 
             var fish = new Fish
             {
