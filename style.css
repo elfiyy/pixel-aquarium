@@ -1,4 +1,6 @@
-﻿* {
+﻿@import url('https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -14,13 +16,13 @@ body {
 }
 
 /* ==========================================================================
-   ÜST BAR & LOGONUN ORİJİNAL HAVA VE TONLARI
+   ÜST BAR & BUTONLAR
    ========================================================================== */
 .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 36px;
+    padding: 12px 24px;
     background-color: #fffefb;
     border-bottom: 2px dashed #dcd3be;
 }
@@ -28,97 +30,73 @@ body {
 .brand-container {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 12px;
 }
 
 .brand-logo {
-    height: 96px;
+    height: 64px;
     width: auto;
     cursor: pointer;
     filter: drop-shadow(0 3px 6px rgba(27, 56, 60, 0.08));
-    transition: transform 0.25s ease;
 }
-
-    .brand-logo:hover {
-        transform: scale(1.05) rotate(-2deg);
-    }
 
 .info-doodle-btn {
     background-color: #88cbca;
     border: 2px dashed #173b3e;
     color: #173b3e;
-    font-family: 'Gaegu', cursive;
-    font-size: 19px;
+    font-family: 'Mali', cursive;
+    font-size: 14px;
     font-weight: 700;
-    padding: 6px 16px;
+    padding: 5px 12px;
     border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     box-shadow: 2px 2px 0 rgba(23, 59, 62, 0.2);
-    transition: all 0.2s ease;
 }
 
-    .info-doodle-btn:hover {
-        background-color: #72bebd;
-        transform: translateY(-2px) rotate(1deg);
-        box-shadow: 2px 4px 0 rgba(23, 59, 62, 0.25);
-    }
-
 .doodle-q {
-    font-weight: 700;
     background: #ffffff;
     color: #173b3e;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 11px;
 }
 
 .nav-buttons {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .lang-toggle-btn {
-    font-family: 'Gaegu', cursive;
-    font-size: 18px;
+    font-family: 'Mali', cursive;
+    font-size: 13px;
     font-weight: 700;
     background-color: #ffffff;
     color: #1e3338;
-    padding: 6px 14px;
+    padding: 6px 10px;
     border: 2px solid #1e3338;
-    border-radius: 20px;
+    border-radius: 14px;
     cursor: pointer;
-    box-shadow: 2px 2px 0 #1e3338;
-    transition: all 0.15s ease;
+    box-shadow: 1.5px 1.5px 0 #1e3338;
 }
 
-    .lang-toggle-btn:hover {
-        background-color: #f2ede0;
-    }
-
 .doodle-btn {
-    font-family: 'Gaegu', cursive;
-    font-size: 20px;
+    font-family: 'Mali', cursive;
+    font-size: 13px;
     font-weight: 700;
-    padding: 7px 18px;
+    padding: 7px 12px;
     border-radius: 255px 20px 225px 20px/20px 225px 20px 255px;
     border: 2px solid #1e3338;
     cursor: pointer;
-    box-shadow: 2px 3px 0 #1e3338;
-    transition: all 0.15s ease;
+    box-shadow: 2px 2.5px 0 #1e3338;
 }
-
-    .doodle-btn:active {
-        transform: translate(2px, 2px);
-        box-shadow: 0 0 0 #1e3338;
-    }
 
 .btn-secondary {
     background-color: #ffffff;
@@ -130,17 +108,13 @@ body {
     color: #ffffff;
 }
 
-    .btn-primary:hover {
-        background-color: #356f77;
-    }
-
 /* ==========================================================================
-   BAŞLIK & ETİKETLER (SAMİMİ DEAR FISH DİLİ)
+   BAŞLIK & ETİKETLER
    ========================================================================== */
 .main-container {
     max-width: 1040px;
     margin: 0 auto;
-    padding: 24px 16px 44px;
+    padding: 16px 14px 40px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -149,36 +123,36 @@ body {
 
 .tank-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .tank-title {
-    font-family: 'Gaegu', cursive;
-    font-size: 46px;
+    font-family: 'Mali', cursive;
+    font-size: 38px;
     font-weight: 700;
     color: #183337;
-    letter-spacing: -0.5px;
     margin-bottom: 2px;
 }
 
 .tank-desc {
-    font-size: 15px;
+    font-size: 13px;
     color: #556c70;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    max-width: 480px;
 }
 
 .badges-row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .doodle-badge {
-    font-family: 'Gaegu', cursive;
-    font-size: 17px;
+    font-family: 'Mali', cursive;
+    font-size: 13px;
     font-weight: 700;
-    padding: 4px 14px;
-    border-radius: 18px;
+    padding: 4px 12px;
+    border-radius: 14px;
     background-color: #ede5d3;
     color: #2b4549;
     border: 1.5px solid #d4c9b3;
@@ -197,14 +171,14 @@ body {
 }
 
 /* ==========================================================================
-   MERKEZİ AKVARYUM
+   AKVARYUM SAHNESİ & KİLİTLİ DENİZYILDIZI
    ========================================================================== */
 .stage-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 }
 
 .aquarium-outer {
@@ -219,6 +193,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    container-type: inline-size;
 }
 
 .tank-layer {
@@ -258,18 +233,13 @@ body {
     position: absolute;
     cursor: pointer;
     user-select: none;
-    width: 74px;
-    height: 74px;
+    width: 66px;
+    height: 66px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: filter 0.2s ease, transform 0.2s ease;
     will-change: transform, left, top;
 }
-
-    .fish-sprite:hover {
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.95));
-    }
 
     .fish-sprite img {
         width: 100%;
@@ -278,47 +248,42 @@ body {
         image-rendering: pixelated;
     }
 
+    /* Denizyıldızı mobilde de masaüstünde de hep kumun üzerinde kalır */
+    .fish-sprite.fish-type-starfish {
+        top: auto !important;
+        bottom: 15% !important;
+        left: 47% !important;
+        transform: none !important;
+    }
+
 /* ==========================================================================
-   AKVARYUM ALTI KONTROLLERİ: BELİRGİN POŞET KARTI & BUTONLAR
+   ALT KONTROL KARTLARI
    ========================================================================== */
 .tank-action-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 14px;
     width: 100%;
     flex-wrap: wrap;
 }
 
-/* Canlı, Büyük ve Temayla Bütün Poşet Kartı */
 .poşet-card-btn {
     background-color: #fffefb;
-    border: 2.5px solid #1e3338;
+    border: 2px solid #1e3338;
     border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
-    box-shadow: 3px 4px 0 #1e3338;
-    padding: 10px 22px 10px 14px;
+    box-shadow: 2.5px 3px 0 #1e3338;
+    padding: 8px 18px 8px 12px;
     display: inline-flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     text-align: left;
 }
 
-    .poşet-card-btn:hover {
-        background-color: #f2faf9;
-        transform: translateY(-3px) rotate(-1deg);
-        box-shadow: 4px 6px 0 #1e3338;
-    }
-
-    .poşet-card-btn:active {
-        transform: translate(2px, 2px);
-        box-shadow: 1px 1px 0 #1e3338;
-    }
-
 .poşet-img-wrap {
-    width: 68px;
-    height: 68px;
+    width: 52px;
+    height: 52px;
     background-color: #ebf6f5;
     border: 1.5px dashed #41828c;
     border-radius: 50%;
@@ -329,20 +294,9 @@ body {
 }
 
 .poşet-img {
-    width: 50px;
+    width: 38px;
     height: auto;
     image-rendering: pixelated;
-    animation: bagWiggle 3.2s ease-in-out infinite;
-}
-
-@keyframes bagWiggle {
-    0%, 100% {
-        transform: translateY(0) rotate(0);
-    }
-
-    50% {
-        transform: translateY(-3px) rotate(-4deg);
-    }
 }
 
 .poşet-btn-text {
@@ -351,50 +305,37 @@ body {
 }
 
 .poşet-title {
-    font-family: 'Gaegu', cursive;
-    font-size: 24px;
+    font-family: 'Mali', cursive;
+    font-size: 19px;
     font-weight: 700;
     color: #173b3e;
     line-height: 1.1;
 }
 
 .poşet-sub {
-    font-size: 13px;
+    font-size: 11px;
     color: #5c7477;
     margin-top: 2px;
 }
 
-/* Paylaş Butonu */
 .doodle-share-btn {
     background-color: #e28e83;
     color: #ffffff;
-    font-family: 'Gaegu', cursive;
-    font-size: 22px;
+    font-family: 'Mali', cursive;
+    font-size: 16px;
     font-weight: 700;
-    padding: 14px 26px;
+    padding: 12px 20px;
     border-radius: 255px 20px 225px 20px/20px 225px 20px 255px;
-    border: 2.5px solid #1e3338;
-    box-shadow: 3px 4px 0 #1e3338;
+    border: 2px solid #1e3338;
+    box-shadow: 2.5px 3px 0 #1e3338;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    transition: all 0.15s ease;
+    gap: 8px;
 }
 
-    .doodle-share-btn:hover {
-        background-color: #d67f74;
-        transform: translateY(-2px);
-        box-shadow: 4px 6px 0 #1e3338;
-    }
-
-    .doodle-share-btn:active {
-        transform: translate(2px, 2px);
-        box-shadow: 1px 1px 0 #1e3338;
-    }
-
 /* ==========================================================================
-   MODALLER (EL ÇİZİMİ / ORGANİK KAVİSLİ)
+   MODALLER
    ========================================================================== */
 .modal {
     display: none;
@@ -415,9 +356,9 @@ body {
 .modal-box {
     background-color: #fffefb;
     border: 3px solid #1e3338;
-    border-radius: 28px;
-    box-shadow: 5px 6px 0 #1e3338;
-    padding: 30px 26px;
+    border-radius: 26px;
+    box-shadow: 4px 5px 0 #1e3338;
+    padding: 24px 20px;
     max-width: 440px;
     width: 100%;
     position: relative;
@@ -426,178 +367,145 @@ body {
 }
 
 .fish-modal-box {
-    max-width: 500px;
+    max-width: 480px;
 }
 
 .close-btn {
     position: absolute;
-    top: 14px;
-    right: 16px;
+    top: 12px;
+    right: 14px;
     background: #f1ebd9;
     border: 2px solid #1e3338;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
     cursor: pointer;
     color: #1e3338;
-    transition: transform 0.15s;
 }
 
-    .close-btn:hover {
-        transform: scale(1.15) rotate(90deg);
-    }
-
-.modal-header-section {
-    margin-bottom: 18px;
+.modal-header-section h2 {
+    font-family: 'Mali', cursive;
+    font-size: 22px;
+    font-weight: 700;
+    color: #173b3e;
 }
-
-    .modal-header-section h2 {
-        font-family: 'Gaegu', cursive;
-        font-size: 32px;
-        font-weight: 700;
-        color: #173b3e;
-    }
 
 .modal-subtext {
-    font-size: 14px;
+    font-size: 13px;
     color: #556c70;
     margin-top: 2px;
 }
 
 .input-group {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     text-align: left;
 }
 
     .input-group label {
         display: block;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
         color: #2b4549;
     }
 
     .input-group input,
     .input-group textarea {
         width: 100%;
-        padding: 12px 16px;
+        padding: 10px 14px;
         font-family: 'Outfit', sans-serif;
         font-size: 14px;
         border: 2px solid #c8d3d5;
-        border-radius: 16px;
+        border-radius: 14px;
         outline: none;
         background-color: #faf7f2;
-        color: #1e3338;
-        transition: border-color 0.2s;
     }
-
-        .input-group input:focus,
-        .input-group textarea:focus {
-            border-color: #41828c;
-            background-color: #ffffff;
-        }
 
 .modal-submit-btn {
     width: 100%;
-    margin-top: 12px;
-    padding: 12px;
-    font-family: 'Gaegu', cursive;
-    font-size: 22px;
+    margin-top: 10px;
+    padding: 11px;
+    font-family: 'Mali', cursive;
+    font-size: 18px;
     font-weight: 700;
     background-color: #41828c;
     color: #ffffff;
     border: 2px solid #1e3338;
-    border-radius: 20px;
-    box-shadow: 2px 3px 0 #1e3338;
+    border-radius: 18px;
+    box-shadow: 2px 2.5px 0 #1e3338;
     cursor: pointer;
-    transition: all 0.15s ease;
 }
 
-    .modal-submit-btn:active {
-        transform: translate(2px, 2px);
-        box-shadow: 0 0 0 #1e3338;
-    }
-
-/* Canlı Seçim Tablosu */
 .fish-picker-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 8px;
+    margin-bottom: 14px;
 }
 
 .fish-card-pick {
     border: 2px solid #e1e7e7;
     background-color: #f7f9f9;
-    padding: 8px 4px;
+    padding: 6px 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     cursor: pointer;
-    border-radius: 16px;
-    transition: all 0.15s ease;
+    border-radius: 14px;
 }
 
-    .fish-card-pick:hover {
-        transform: translateY(-2px);
-        border-color: #41828c;
-    }
-
     .fish-card-pick img {
-        width: 44px;
-        height: 44px;
+        width: 40px;
+        height: 40px;
         object-fit: contain;
         image-rendering: pixelated;
     }
 
     .fish-card-pick span {
-        font-family: 'Gaegu', cursive;
-        font-size: 16px;
-        font-weight: 700;
+        font-family: 'Mali', cursive;
+        font-size: 12px;
+        font-weight: 600;
         color: #445b5e;
     }
 
     .fish-card-pick.selected {
         border-color: #173b3e;
         background-color: #e5f3f2;
-        transform: scale(1.05);
-        box-shadow: 2px 3px 0 #173b3e;
     }
 
     .fish-card-pick.disabled {
         opacity: 0.25;
         pointer-events: none;
-        filter: grayscale(1);
     }
 
 .modal-steps-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin: 14px 0;
     text-align: left;
 }
 
 .step-card {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
     background: #fbf8f0;
-    padding: 10px 14px;
-    border-radius: 16px;
+    padding: 8px 12px;
+    border-radius: 14px;
     border: 1.5px dashed #dcd3be;
 }
 
 .step-badge {
     background-color: #41828c;
     color: #ffffff;
-    font-family: 'Gaegu', cursive;
+    font-family: 'Mali', cursive;
     font-weight: 700;
-    font-size: 18px;
-    width: 28px;
-    height: 28px;
+    font-size: 14px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -606,73 +514,56 @@ body {
 }
 
 .step-card strong {
-    font-size: 14px;
+    font-size: 13px;
     color: #183337;
 }
 
 .step-card p {
-    font-size: 13px;
-    color: #556c70;
-    margin-top: 2px;
-}
-
-.handwritten-quote-box {
-    background-color: #faf6ee;
-    border-radius: 18px;
-    padding: 18px;
-    border-left: 5px solid #41828c;
-    margin-bottom: 12px;
-}
-
-    .handwritten-quote-box p {
-        font-size: 16px;
-        line-height: 1.6;
-        color: #183337;
-        font-style: italic;
-    }
-
-.read-date-text {
     font-size: 12px;
-    color: #889ea1;
+    color: #556c70;
 }
 
-/* Mobil Uyum */
-@media (max-width: 840px) {
+/* ==========================================================================
+   MOBİL AYARLARI
+   ========================================================================== */
+@media (max-width: 600px) {
     .top-nav {
-        padding: 12px 16px;
-        flex-wrap: wrap;
-        gap: 10px;
+        padding: 8px 12px;
     }
 
     .brand-logo {
-        height: 64px;
+        height: 44px;
     }
 
     .info-doodle-btn {
-        font-size: 16px;
-        padding: 4px 12px;
+        font-size: 12px;
+        padding: 4px 8px;
     }
 
     .doodle-btn {
-        font-size: 16px;
-        padding: 6px 12px;
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .lang-toggle-btn {
+        padding: 5px 8px;
+        font-size: 12px;
     }
 
     .tank-title {
-        font-size: 34px;
+        font-size: 30px;
     }
 
     .fish-sprite {
-        width: 60px;
-        height: 60px;
+        width: 52px;
+        height: 52px;
     }
 
-    .tank-action-bar {
-        flex-direction: column;
+    .poşet-card-btn {
         width: 100%;
+        justify-content: center;
     }
 
-    .poşet-card-btn,
     .doodle-share-btn {
         width: 100%;
         justify-content: center;

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. CANLI API & DİL SÖZLÜĞÜ (TR / EN - DEAR FISH KİMLİĞİ)
+   1. CANLI API & ÇOKLU DİL SÖZLÜĞÜ (TR / EN)
    ========================================================================== */
 const API_BASE = "https://dearfish.onrender.com/api/tanks";
 
@@ -248,21 +248,19 @@ function renderTank() {
             el.className = `fish-sprite fish-type-${meta.type}`;
             el.id = `fish-node-${fish.id}`;
 
-            // Denizyıldızı akvaryum kumunun tam üzerine oturur (çerçeveye taşmaz)
+            // Denizyıldızı CSS kuralına göre kumun üzerinde sabit kalır
             if (meta.type === "starfish") {
-                el.style.left = `46%`;
-                el.style.top = `72%`;
+                el.style.left = `47%`;
             } else {
                 el.style.left = `${fish.x}%`;
                 el.style.top = `${fish.y}%`;
             }
 
-            // Her balığa birbirinden farklı bağımsız rota, hız ve derinlik katmanı
+            // Her balığa bağımsız derinlik katmanı
             if (!fish.speedX) {
                 fish.speedX = 0.025 + ((fish.fishId * 7) % 5) * 0.006;
                 fish.speedY = (((fish.fishId * 13) % 7) - 3) * 0.004;
                 fish.dirX = fish.fishId % 2 === 0 ? 1 : -1;
-                // Balıkların üst üste binmesini engelleyen farklı katmanlar
                 fish.minY = 12 + ((fish.fishId * 6) % 30);
                 fish.maxY = fish.minY + 22;
             }
@@ -272,7 +270,7 @@ function renderTank() {
             img.alt = fish.sender;
             el.appendChild(img);
 
-            // Balığa tıklayınca not gösterme
+            // Not Okuma
             el.addEventListener("click", () => {
                 if (!isOwnerAuthenticated) {
                     alert(t("onlyOwnerRead"));
@@ -292,7 +290,7 @@ function renderTank() {
 }
 
 /* ==========================================================================
-   4. FERAH YÜZME MOTORU (KATMAN KORUMALI)
+   4. YÜZME MOTORU
    ========================================================================== */
 function movementLoop() {
     if (currentTank && currentTank.fishes) {
@@ -301,10 +299,8 @@ function movementLoop() {
             const el = document.getElementById(`fish-node-${fish.id}`);
             if (!el) return;
 
-            // Denizyıldızı kumda sabit dinlenir
             if (meta.type === "starfish") return;
 
-            // Denizatı dik konumda zarifçe salınır
             if (meta.type === "seahorse") {
                 const osc = Math.sin(Date.now() / 700) * 0.4;
                 el.style.top = `${fish.y + osc}%`;
@@ -314,13 +310,11 @@ function movementLoop() {
             fish.x += fish.speedX * fish.dirX;
             fish.y += fish.speedY;
 
-            // Yan sınırlardan sekme
             if (fish.x > 74) fish.dirX = -1;
             else if (fish.x < 10) fish.dirX = 1;
 
             el.style.transform = fish.dirX === 1 ? "scaleX(-1)" : "scaleX(1)";
 
-            // Dikey sınır sekmesi (her balık kendi derinliğinde yüzer)
             const minY = fish.minY || 14;
             const maxY = fish.maxY || 55;
             if (fish.y > maxY || fish.y < minY) fish.speedY = -fish.speedY;
@@ -335,7 +329,6 @@ function movementLoop() {
 /* ==========================================================================
    5. ETKİLEŞİMLER
    ========================================================================== */
-// Dil Seçimi
 langToggleBtn.addEventListener("click", () => {
     currentLang = currentLang === "tr" ? "en" : "tr";
     localStorage.setItem("dearfish_lang", currentLang);
@@ -345,7 +338,6 @@ langToggleBtn.addEventListener("click", () => {
 infoButton.addEventListener("click", () => infoModal.classList.add("show"));
 createButton.addEventListener("click", () => createModal.classList.add("show"));
 
-// Yeni Akvaryum
 createAquariumSubmit.addEventListener("click", async () => {
     const name = document.getElementById("aquariumName").value.trim();
     const password = document.getElementById("aquariumPassword").value.trim();
@@ -379,7 +371,6 @@ createAquariumSubmit.addEventListener("click", async () => {
     }
 });
 
-// Akvaryuma Giriş
 loginButton.addEventListener("click", () => loginModal.classList.add("show"));
 
 loginAquariumSubmit.addEventListener("click", async () => {
@@ -419,7 +410,6 @@ loginAquariumSubmit.addEventListener("click", async () => {
     }
 });
 
-// Balık Modalını Aç
 addFishButton.addEventListener("click", () => {
     if (!currentTankCode) return alert(t("needCreateFirst"));
     if (currentTank && currentTank.fishes && currentTank.fishes.length >= 8) {
@@ -430,7 +420,6 @@ addFishButton.addEventListener("click", () => {
     fishModal.classList.add("show");
 });
 
-// Canlı Bırak (Optimistik & Geniş Dağılımlı)
 dropFishSubmit.addEventListener("click", async () => {
     if (!selectedFishId) return alert(t("pickFishWarning"));
     const sender = document.getElementById("fishSenderName").value.trim();
@@ -440,14 +429,12 @@ dropFishSubmit.addEventListener("click", async () => {
 
     const meta = SPECIES_CONFIG.find(s => s.id === selectedFishId);
 
-    // Akvaryumun boş alanlarına dengeli yayılım
     let startX = 15 + Math.floor(Math.random() * 55);
     let startY = 14 + Math.floor(Math.random() * 38);
 
-    if (meta.type === "starfish") { startX = 46; startY = 72; }
+    if (meta.type === "starfish") { startX = 47; startY = 65; }
     else if (meta.type === "seahorse") { startX = 18; startY = 38; }
 
-    // Arayüzü bekletmeden anında akvaryuma yerleştir
     const tempId = "temp-" + Date.now();
     currentTank.fishes.push({
         id: tempId,
@@ -464,7 +451,6 @@ dropFishSubmit.addEventListener("click", async () => {
     document.getElementById("fishNote").value = "";
     renderTank();
 
-    // Arka planda sunucuya kaydet
     try {
         const res = await fetch(`${API_BASE}/${currentTankCode}/fishes`, {
             method: "POST",
@@ -488,14 +474,12 @@ dropFishSubmit.addEventListener("click", async () => {
     }
 });
 
-// Paylaş
 shareTankButton.addEventListener("click", () => {
     if (!currentTankCode) return alert(t("needCreateFirst"));
     navigator.clipboard.writeText(window.location.href);
     alert(t("linkCopied"));
 });
 
-// Balık Türü Seçimi
 fishOptions.forEach(btn => {
     btn.addEventListener("click", () => {
         if (btn.classList.contains("disabled")) return;
@@ -505,7 +489,6 @@ fishOptions.forEach(btn => {
     });
 });
 
-// Modalları Kapatma
 closeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
         document.getElementById(btn.dataset.close).classList.remove("show");
@@ -516,7 +499,6 @@ closeButtons.forEach(btn => {
     m.addEventListener("click", e => { if (e.target === m) m.classList.remove("show"); });
 });
 
-// Başlangıç
 applyLanguage();
 loadTank();
 requestAnimationFrame(movementLoop);
