@@ -1,22 +1,159 @@
 /* ==========================================================================
-   1. CANLI API BAĞLANTISI & CANLILAR
+   1. CANLI API & DİL SÖZLÜĞÜ (TR / EN - DEAR FISH KİMLİĞİ)
    ========================================================================== */
 const API_BASE = "https://dearfish.onrender.com/api/tanks";
 
-const SPECIES_CONFIG = [
-    { id: 1, name: "Palyaço", src: "assets/fish-1.png", type: "swim" },
-    { id: 2, name: "Mavi Balık", src: "assets/fish-2.png", type: "swim" },
-    { id: 3, name: "Çizgili", src: "assets/fish-3.png", type: "swim" },
-    { id: 4, name: "Pembe", src: "assets/fish-4.png", type: "swim" },
-    { id: 5, name: "Koi", src: "assets/fish-5.png", type: "swim" },
-    { id: 6, name: "Mor Melek", src: "assets/fish-6.png", type: "swim" },
-    { id: 7, name: "Denizatı", src: "assets/fish-7.png", type: "seahorse" },
-    { id: 8, name: "Denizyıldızı", src: "assets/fish-8.png", type: "starfish" }
-];
+const TRANSLATIONS = {
+    tr: {
+        whatIs: "dear fish nedir?",
+        enterTank: "Akvaryumuma Gir",
+        createTank: "Akvaryum Oluştur",
+        defaultTitle: "dear fish",
+        defaultDesc: "sevdiklerin için sakin bir su altı durağı.",
+        tankCodeLabel: "Akvaryum: ",
+        tankSubNotice: " ~ poşetten bir canlı seçip notunu bırakabilirsin.",
+        noTankSelected: "Akvaryum Seçilmedi",
+        leftBadge: "Canlı",
+        notesLocked: "🔒 notlar gizli",
+        notesOpen: "🔓 notlar açık",
+        eightFullUnlock: "🔒 8 canlı doldu (şifreyle aç)",
+        fishesLeft: "boş yer",
+        dropFish: "Balık Bırak",
+        dropFishSub: "gizli bir not iliştir ~",
+        shareLink: "Akvaryumu Paylaş",
+        guideTitle: "dear fish nedir? 🫧",
+        step1Title: "Akvaryumunu Aç",
+        step1Desc: "Bir ad ve sadece senin bileceğin gizli bir şifre seç.",
+        step2Title: "Bağlantını İlet",
+        step2Desc: "Linkini arkadaşlarına gönder, sana küçük sürprizler bıraksınlar.",
+        step3Title: "Canlılar Yüzsün",
+        step3Desc: "Bırakılan canlılar akvaryumda hemen yüzmeye başlar, notlar ise kilitli kalır.",
+        step4Title: "8 Canlı Dolunca Oku",
+        step4Desc: "Akvaryum dolunca şifrenle giriş yap ve sana yazılan her şeyi keşfet.",
+        understoodBtn: "anladım, devam et ~",
+        createModalTitle: "yeni bir su altı alanı 🌊",
+        createModalSub: "Akvaryumuna bir isim ve notlarını koruyacak bir şifre ver.",
+        tankNameLabel: "Akvaryum Adı",
+        passwordLabel: "Şifre",
+        createSubmitBtn: "oluştur ✦",
+        creatingBtn: "hazırlanıyor...",
+        loginModalTitle: "akvaryumuna giriş yap 🗝️",
+        loginModalSub: "İsim ve şifreni girerek gizli notları çöz.",
+        loginSubmitBtn: "giriş yap ve notları aç",
+        fishModalTitle: "akvaryuma bir canlı bırak 🐠",
+        fishModalSub: "Boş bir canlı seç ve akvaryum sahibine gizli bir not yaz.",
+        senderLabel: "Kimden",
+        noteLabel: "Gizli Notun",
+        dropFishSubmitBtn: "akvaryuma bırak 🫧",
+        linkCopied: "✨ Akvaryum bağlantın kopyalandı! Arkadaşlarına gönderip not bırakmalarını isteyebilirsin.",
+        needCreateFirst: "Paylaşmak için önce bir akvaryum oluşturmalısın!",
+        tankFullAlert: "Bu akvaryum tamamen dolmuş! (8/8)",
+        fillAllFields: "Lütfen tüm alanları doldurun!",
+        loginSuccessNotesOpen: "🎉 8 canlı tamamlandı! Canlılara tıklayarak sana bırakılan tüm notları okuyabilirsin.",
+        loginSuccessWaiting: "Giriş yapıldı! Şu an {count}/8 canlı var. 8 canlı dolunca notlar açılacak.",
+        loginFailed: "Giriş yapılamadı! İsim veya şifre hatalı.",
+        onlyOwnerRead: "🔒 Bu not sadece akvaryum sahibine özeldir.",
+        notesStillLocked: "🔒 Notlar henüz kilitli! 8 canlı tamamlanınca açılacak.",
+        pickFishWarning: "Lütfen bir canlı seçin!",
+        fillNameAndNote: "Lütfen adınızı ve notunuzu yazın!",
+        fishNames: ["Palyaço", "Mavi", "Çizgili", "Pembe", "Koi", "Melek", "Denizatı", "Yıldız"]
+    },
+    en: {
+        whatIs: "what is dear fish?",
+        enterTank: "Open My Tank",
+        createTank: "Create Tank",
+        defaultTitle: "dear fish",
+        defaultDesc: "a calm underwater corner for your loved ones.",
+        tankCodeLabel: "Tank: ",
+        tankSubNotice: " ~ pick a creature from the pouch to leave a secret note.",
+        noTankSelected: "No Tank Selected",
+        leftBadge: "Creatures",
+        notesLocked: "🔒 notes locked",
+        notesOpen: "🔓 notes unlocked",
+        eightFullUnlock: "🔒 8 slots filled (unlock with password)",
+        fishesLeft: "slots left",
+        dropFish: "Drop a Fish",
+        dropFishSub: "attach a secret note ~",
+        shareLink: "Share Tank",
+        guideTitle: "what is dear fish? 🫧",
+        step1Title: "Create Your Tank",
+        step1Desc: "Pick a name and a secret password to open your personal tank.",
+        step2Title: "Share the Link",
+        step2Desc: "Send your tank link to friends and invite them to leave a note.",
+        step3Title: "Watch Them Swim",
+        step3Desc: "Creatures begin swimming right away, but notes remain hidden.",
+        step4Title: "Unlock at 8 Creatures",
+        step4Desc: "Once full, enter your password to read everything left for you.",
+        understoodBtn: "got it, let's go ~",
+        createModalTitle: "a new underwater corner 🌊",
+        createModalSub: "Give your tank a name and a password to keep notes private.",
+        tankNameLabel: "Tank Name",
+        passwordLabel: "Password",
+        createSubmitBtn: "create ✦",
+        creatingBtn: "setting up...",
+        loginModalTitle: "access your tank 🗝️",
+        loginModalSub: "Enter your tank name and password to reveal all notes.",
+        loginSubmitBtn: "open and read notes",
+        fishModalTitle: "drop a creature 🐠",
+        fishModalSub: "Pick an available friend and write a sweet message.",
+        senderLabel: "From",
+        noteLabel: "Your Secret Note",
+        dropFishSubmitBtn: "drop into tank 🫧",
+        linkCopied: "✨ Tank link copied! Send it to your friends to collect sweet notes.",
+        needCreateFirst: "Create an aquarium first before sharing!",
+        tankFullAlert: "This tank is already full! (8/8)",
+        fillAllFields: "Please fill out all fields!",
+        loginSuccessNotesOpen: "🎉 All 8 creatures are here! Click any creature to read the notes.",
+        loginSuccessWaiting: "Logged in! Currently {count}/8 creatures added. Notes will open at 8.",
+        loginFailed: "Sign in failed! Check your name or password.",
+        onlyOwnerRead: "🔒 Only the tank owner can read this note.",
+        notesStillLocked: "🔒 Notes are still locked! They will unlock when 8 creatures are gathered.",
+        pickFishWarning: "Please pick a creature first!",
+        fillNameAndNote: "Please write your name and note!",
+        fishNames: ["Clownfish", "Blue Tang", "Striped", "Pinky", "Koi", "Angel", "Seahorse", "Starfish"]
+    }
+};
+
+let currentLang = localStorage.getItem("dearfish_lang") || (navigator.language.startsWith("tr") ? "tr" : "en");
+
+function t(key) {
+    return TRANSLATIONS[currentLang][key] || key;
+}
+
+function applyLanguage() {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (TRANSLATIONS[currentLang][key]) {
+            el.innerText = TRANSLATIONS[currentLang][key];
+        }
+    });
+
+    document.getElementById("currentLangText").innerText = currentLang === "tr" ? "EN" : "TR";
+
+    document.querySelectorAll("[data-fish-name]").forEach(el => {
+        const idx = parseInt(el.getAttribute("data-fish-name")) - 1;
+        if (TRANSLATIONS[currentLang].fishNames[idx]) {
+            el.innerText = TRANSLATIONS[currentLang].fishNames[idx];
+        }
+    });
+
+    renderTank();
+}
 
 /* ==========================================================================
-   2. DURUM DEĞİŞKENLERİ
+   2. TÜR AYARLARI & DEĞİŞKENLER
    ========================================================================== */
+const SPECIES_CONFIG = [
+    { id: 1, src: "assets/fish-1.png", type: "swim" },
+    { id: 2, src: "assets/fish-2.png", type: "swim" },
+    { id: 3, src: "assets/fish-3.png", type: "swim" },
+    { id: 4, src: "assets/fish-4.png", type: "swim" },
+    { id: 5, src: "assets/fish-5.png", type: "swim" },
+    { id: 6, src: "assets/fish-6.png", type: "swim" },
+    { id: 7, src: "assets/fish-7.png", type: "seahorse" },
+    { id: 8, src: "assets/fish-8.png", type: "starfish" }
+];
+
 const urlParams = new URLSearchParams(window.location.search);
 let currentTankCode = urlParams.get("tank");
 
@@ -37,6 +174,7 @@ const loginModal = document.getElementById("loginModal");
 const fishModal = document.getElementById("fishModal");
 const readModal = document.getElementById("readModal");
 
+const langToggleBtn = document.getElementById("langToggleBtn");
 const infoButton = document.getElementById("infoButton");
 const createButton = document.getElementById("createButton");
 const loginButton = document.getElementById("loginButton");
@@ -46,17 +184,17 @@ const createAquariumSubmit = document.getElementById("createAquariumSubmit");
 const loginAquariumSubmit = document.getElementById("loginAquariumSubmit");
 const dropFishSubmit = document.getElementById("dropFishSubmit");
 const closeButtons = document.querySelectorAll("[data-close]");
-const fishOptions = document.querySelectorAll(".fish-option");
+const fishOptions = document.querySelectorAll(".fish-card-pick");
 
 /* ==========================================================================
-   3. VERİ ÇEKME & YÜKLEME
+   3. VERİ YÜKLEME & ÇİZME
    ========================================================================== */
 async function loadTank() {
     if (!currentTankCode) {
-        tankTitle.innerText = "Pixel Mesaj Akvaryumu";
-        tankDesc.innerText = "Kendi akvaryumunu kurup sevdiklerinle paylaşabilir veya giriş yapabilirsin.";
-        fishCounter.innerText = "0 / 8 Canlı Bırakıldı";
-        tankStatusTag.innerText = "Akvaryum Seçilmedi";
+        tankTitle.innerText = t("defaultTitle");
+        tankDesc.innerText = t("defaultDesc");
+        fishCounter.innerText = `0 / 8 ${t("leftBadge")}`;
+        tankStatusTag.innerText = t("noTankSelected");
         currentTank = { fishes: [] };
         renderTank();
         return;
@@ -68,28 +206,25 @@ async function loadTank() {
 
         currentTank = await res.json();
         tankTitle.innerText = currentTank.title;
-        tankDesc.innerText = `Akvaryum Kodu: ${currentTank.code} - Sağdaki torbadan canlı seçip gizli notunu bırakabilirsin!`;
+        tankDesc.innerText = `${t("tankCodeLabel")}${currentTank.code}${t("tankSubNotice")}`;
         renderTank();
     } catch (err) {
-        alert("Akvaryum bulunamadı veya sunucu uyku modundan uyanıyor olabilir. Lütfen birkaç saniye sonra tekrar deneyin.");
+        console.error("Hata:", err);
     }
 }
 
-/* ==========================================================================
-   4. EKRANA ÇİZME (RENDER)
-   ========================================================================== */
 function renderTank() {
     if (!currentTank) return;
     fishCanvas.innerHTML = "";
 
     const count = currentTank.fishes ? currentTank.fishes.length : 0;
-    fishCounter.innerText = `${count} / 8 Canlı Bırakıldı`;
+    fishCounter.innerText = `${count} / 8 ${t("leftBadge")}`;
 
     if (count >= 8) {
-        tankStatusTag.innerText = isOwnerAuthenticated ? "🔓 Notlar Açık" : "🔒 8 Canlı Doldu (Şifreyle Aç)";
+        tankStatusTag.innerText = isOwnerAuthenticated ? t("notesOpen") : t("eightFullUnlock");
         tankStatusTag.classList.add("unlocked");
     } else {
-        tankStatusTag.innerText = `🔒 Notlar Kilitli (${8 - count} Canlı Kaldı)`;
+        tankStatusTag.innerText = `${t("notesLocked")} (${8 - count} ${t("fishesLeft")})`;
         tankStatusTag.classList.remove("unlocked");
     }
 
@@ -113,7 +248,6 @@ function renderTank() {
             el.className = `fish-sprite fish-type-${meta.type}`;
             el.id = `fish-node-${fish.id}`;
 
-            // Denizyıldızı tam akvaryum kumunun üzerine sabitlenir
             if (meta.type === "starfish") {
                 el.style.left = `45%`;
                 el.style.top = `83%`;
@@ -133,14 +267,13 @@ function renderTank() {
             img.alt = fish.sender;
             el.appendChild(img);
 
-            // Balığa Tıklama
             el.addEventListener("click", () => {
                 if (!isOwnerAuthenticated) {
-                    alert("🔒 Bu balıktaki notu sadece akvaryum sahibi giriş yaparak görebilir!");
+                    alert(t("onlyOwnerRead"));
                 } else if (currentTank.fishes.length < 8) {
-                    alert("🔒 Notlar henüz kilitli! 8 canlı dolunca açılacak.");
+                    alert(t("notesStillLocked"));
                 } else {
-                    document.getElementById("readSenderName").innerText = `Kimden: ${fish.sender}`;
+                    document.getElementById("readSenderName").innerText = `${currentLang === "tr" ? "Kimden" : "From"}: ${fish.sender}`;
                     document.getElementById("readNoteText").innerText = `"${fish.note}"`;
                     document.getElementById("readNoteDate").innerText = fish.date || "";
                     readModal.classList.add("show");
@@ -153,7 +286,7 @@ function renderTank() {
 }
 
 /* ==========================================================================
-   5. SAKİN YÜZME MOTORU
+   4. YÜZME MOTORU
    ========================================================================== */
 function movementLoop() {
     if (currentTank && currentTank.fishes) {
@@ -162,12 +295,10 @@ function movementLoop() {
             const el = document.getElementById(`fish-node-${fish.id}`);
             if (!el) return;
 
-            // Denizyıldızı akvaryum tabanında durur, yüzmez
             if (meta.type === "starfish") return;
 
-            // Denizatı salınımı
             if (meta.type === "seahorse") {
-                const osc = Math.sin(Date.now() / 650) * 0.35;
+                const osc = Math.sin(Date.now() / 600) * 0.35;
                 el.style.top = `${fish.y + osc}%`;
                 return;
             }
@@ -175,7 +306,7 @@ function movementLoop() {
             fish.x += fish.speedX * fish.dirX;
             fish.y += fish.speedY;
 
-            if (fish.x > 76) fish.dirX = -1;
+            if (fish.x > 75) fish.dirX = -1;
             else if (fish.x < 10) fish.dirX = 1;
 
             el.style.transform = fish.dirX === 1 ? "scaleX(-1)" : "scaleX(1)";
@@ -190,8 +321,14 @@ function movementLoop() {
 }
 
 /* ==========================================================================
-   6. ETKİLEŞİMLER & API ÇAĞRILARI
+   5. ETKİLEŞİMLER
    ========================================================================== */
+langToggleBtn.addEventListener("click", () => {
+    currentLang = currentLang === "tr" ? "en" : "tr";
+    localStorage.setItem("dearfish_lang", currentLang);
+    applyLanguage();
+});
+
 infoButton.addEventListener("click", () => infoModal.classList.add("show"));
 createButton.addEventListener("click", () => createModal.classList.add("show"));
 
@@ -199,7 +336,10 @@ createAquariumSubmit.addEventListener("click", async () => {
     const name = document.getElementById("aquariumName").value.trim();
     const password = document.getElementById("aquariumPassword").value.trim();
 
-    if (!name || !password) return alert("Lütfen akvaryum adı ve şifre belirleyin!");
+    if (!name || !password) return alert(t("fillAllFields"));
+
+    createAquariumSubmit.innerText = t("creatingBtn");
+    createAquariumSubmit.disabled = true;
 
     try {
         const res = await fetch(API_BASE, {
@@ -210,6 +350,8 @@ createAquariumSubmit.addEventListener("click", async () => {
 
         if (!res.ok) {
             const err = await res.text();
+            createAquariumSubmit.innerText = t("createSubmitBtn");
+            createAquariumSubmit.disabled = false;
             return alert(err);
         }
 
@@ -217,7 +359,9 @@ createAquariumSubmit.addEventListener("click", async () => {
         createModal.classList.remove("show");
         window.location.search = `?tank=${data.tankCode}`;
     } catch (err) {
-        alert("Sunucuya bağlanılamadı! Render sunucusu ilk istekte uyanıyor olabilir (yaklaşık 30-40 sn), lütfen bir kez daha deneyin.");
+        alert("Sunucu uyanıyor olabilir, lütfen tekrar deneyin.");
+        createAquariumSubmit.innerText = t("createSubmitBtn");
+        createAquariumSubmit.disabled = false;
     }
 });
 
@@ -227,7 +371,7 @@ loginAquariumSubmit.addEventListener("click", async () => {
     const name = document.getElementById("loginTankName").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
 
-    if (!name || !password) return alert("Lütfen akvaryum adınızı ve şifrenizi girin!");
+    if (!name || !password) return alert(t("fillAllFields"));
 
     try {
         const res = await fetch(`${API_BASE}/login`, {
@@ -251,19 +395,19 @@ loginAquariumSubmit.addEventListener("click", async () => {
         renderTank();
 
         if (data.isFull) {
-            alert("Giriş başarılı! 8 balığın tamamlanmış, canlılara tıklayarak notlarını okuyabilirsin!");
+            alert(t("loginSuccessNotesOpen"));
         } else {
-            alert(`Giriş başarılı! Şu an ${data.fishes.length}/8 canlı var. 8 canlı dolduğunda notlar açılacak.`);
+            alert(t("loginSuccessWaiting").replace("{count}", data.fishes.length));
         }
     } catch (err) {
-        alert("Giriş yapılamadı!");
+        alert(t("loginFailed"));
     }
 });
 
 addFishButton.addEventListener("click", () => {
-    if (!currentTankCode) return alert("Önce bir akvaryum oluşturmalı veya bir linke girmelisin!");
+    if (!currentTankCode) return alert(t("needCreateFirst"));
     if (currentTank && currentTank.fishes && currentTank.fishes.length >= 8) {
-        return alert("Akvaryum tamamen dolmuş! (8/8)");
+        return alert(t("tankFullAlert"));
     }
     selectedFishId = null;
     fishOptions.forEach(b => b.classList.remove("selected"));
@@ -271,11 +415,11 @@ addFishButton.addEventListener("click", () => {
 });
 
 dropFishSubmit.addEventListener("click", async () => {
-    if (!selectedFishId) return alert("Lütfen bir canlı türü seçin!");
+    if (!selectedFishId) return alert(t("pickFishWarning"));
     const sender = document.getElementById("fishSenderName").value.trim();
     const note = document.getElementById("fishNote").value.trim();
 
-    if (!sender || !note) return alert("Lütfen adınızı ve notunuzu yazın!");
+    if (!sender || !note) return alert(t("fillNameAndNote"));
 
     const meta = SPECIES_CONFIG.find(s => s.id === selectedFishId);
     let startX = Math.floor(Math.random() * 40) + 25;
@@ -283,6 +427,22 @@ dropFishSubmit.addEventListener("click", async () => {
 
     if (meta.type === "starfish") { startX = 45; startY = 83; }
     else if (meta.type === "seahorse") { startX = 22; startY = 46; }
+
+    const tempId = "temp-" + Date.now();
+    currentTank.fishes.push({
+        id: tempId,
+        fishId: selectedFishId,
+        sender: sender,
+        note: note,
+        date: currentLang === "tr" ? "Bugün" : "Today",
+        x: startX,
+        y: startY
+    });
+
+    fishModal.classList.remove("show");
+    document.getElementById("fishSenderName").value = "";
+    document.getElementById("fishNote").value = "";
+    renderTank();
 
     try {
         const res = await fetch(`${API_BASE}/${currentTankCode}/fishes`, {
@@ -299,22 +459,18 @@ dropFishSubmit.addEventListener("click", async () => {
 
         if (!res.ok) {
             const err = await res.text();
-            return alert(err);
+            alert("Hata: " + err);
+            loadTank();
         }
-
-        fishModal.classList.remove("show");
-        document.getElementById("fishSenderName").value = "";
-        document.getElementById("fishNote").value = "";
-        loadTank();
     } catch (err) {
-        alert("Balık bırakılamadı!");
+        console.error("Hata:", err);
     }
 });
 
 shareTankButton.addEventListener("click", () => {
-    if (!currentTankCode) return alert("Paylaşmak için önce bir akvaryum oluşturmalısın!");
+    if (!currentTankCode) return alert(t("needCreateFirst"));
     navigator.clipboard.writeText(window.location.href);
-    alert("Akvaryum bağlantın kopyalandı! Sevdiklerine göndererek not bırakmalarını isteyebilirsin.");
+    alert(t("linkCopied"));
 });
 
 fishOptions.forEach(btn => {
@@ -336,5 +492,6 @@ closeButtons.forEach(btn => {
     m.addEventListener("click", e => { if (e.target === m) m.classList.remove("show"); });
 });
 
+applyLanguage();
 loadTank();
 requestAnimationFrame(movementLoop);

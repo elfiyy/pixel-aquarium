@@ -3,44 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dear Fish - Pixel Mesaj Akvaryumu</title>
+    <title>Dear Fish</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ÜST MENÜ (NAVBAR) -->
+    <!-- ÜST BAR -->
     <header class="top-nav">
         <div class="brand-container">
             <img src="assets/logo.png" alt="Dear Fish Logo" class="brand-logo" id="brandLogo">
-            <button class="info-link-button" id="infoButton">
-                ? dear fish nedir?
+            <button class="info-doodle-btn" id="infoButton">
+                <span class="doodle-q">?</span> <span data-i18n="whatIs">dear fish nedir?</span>
             </button>
         </div>
         <div class="nav-buttons">
-            <button class="nav-btn btn-secondary" id="loginButton">Akvaryumuma Gir</button>
-            <button class="nav-btn btn-primary" id="createButton">Akvaryum Oluştur</button>
+            <button class="lang-toggle-btn" id="langToggleBtn" title="Language">
+                <span id="currentLangText">EN</span>
+            </button>
+            <button class="doodle-btn btn-secondary" id="loginButton" data-i18n="enterTank">Akvaryumuma Gir</button>
+            <button class="doodle-btn btn-primary" id="createButton" data-i18n="createTank">Akvaryum Oluştur</button>
         </div>
     </header>
 
-    <!-- ANA ALAN -->
+    <!-- ANA GÖVDE -->
     <main class="main-container">
         <div class="tank-header">
-            <div class="sub-heading">PIXEL MESAJ AKVARYUMU</div>
-            <h1 class="tank-title" id="tankTitle">Pixel Akvaryum</h1>
-            <p class="tank-desc" id="tankDesc">
-                Kendi akvaryumunu oluşturup sevdiklerinle paylaşabilir ya da akvaryumuna giriş yapabilirsin.
+            <h1 class="tank-title" id="tankTitle">dear fish</h1>
+            <p class="tank-desc" id="tankDesc" data-i18n="defaultDesc">
+                sevdiklerin için sakin bir su altı durağı.
             </p>
 
             <div class="badges-row">
-                <span class="badge" id="fishCounter">0 / 8 Canlı Bırakıldı</span>
-                <span class="badge badge-locked" id="tankStatusTag">🔒 Notlar Kilitli</span>
+                <span class="doodle-badge" id="fishCounter">0 / 8 Canlı</span>
+                <span class="doodle-badge badge-locked" id="tankStatusTag">🔒 notlar gizli</span>
             </div>
         </div>
 
-        <!-- AKVARYUM VE SAĞ TORBA ALANI -->
+        <!-- MERKEZİ AKVARYUM -->
         <div class="stage-container">
             <div class="aquarium-outer">
                 <div class="aquarium-glass">
@@ -49,143 +51,163 @@
                     <img src="assets/tank.png" alt="Akvaryum Çerçevesi" class="tank-layer layer-tank">
 
                     <div class="fish-canvas" id="fishCanvas">
-                        <!-- Canlılar buraya yerleşir -->
+                        <!-- Canlılar buraya gelir -->
                     </div>
                 </div>
             </div>
-
-            <!-- Sağ Yan Torba Butonu -->
-            <div class="side-bag-wrapper">
-                <button class="bag-drop-button" id="addFishButton" title="Balık Bırak">
-                    <img src="assets/add-fish.png" alt="Balık Bırak Torbası" class="bag-sprite">
-                    <span class="bag-label">Balık Bırak</span>
-                </button>
-            </div>
         </div>
 
-        <!-- ORTALANMIŞ PAYLAŞ BUTONU -->
-        <div class="share-container">
-            <button class="share-action-button" id="shareTankButton">
-                🔗 Bağlantıyı Paylaş
+        <!-- AKVARYUM ALTI: BELİRGİN POŞET KARTI & PAYLAŞ BUTONU -->
+        <div class="tank-action-bar">
+            <button class="poşet-card-btn" id="addFishButton">
+                <div class="poşet-img-wrap">
+                    <img src="assets/add-fish.png" alt="Balık Torbası" class="poşet-img">
+                </div>
+                <div class="poşet-btn-text">
+                    <span class="poşet-title" data-i18n="dropFish">Balık Bırak</span>
+                    <span class="poşet-sub" data-i18n="dropFishSub">gizli bir not iliştir ~</span>
+                </div>
+            </button>
+
+            <button class="doodle-share-btn" id="shareTankButton">
+                <span class="share-icon">🔗</span>
+                <span data-i18n="shareLink">Akvaryumu Paylaş</span>
             </button>
         </div>
     </main>
 
     <!-- MODAL 1: DEAR FISH NEDİR? -->
     <div class="modal" id="infoModal">
-        <div class="modal-box modern-modal-box">
-            <button class="close-button" data-close="infoModal">×</button>
-            <div class="modern-modal-header">
-                <span class="modern-badge">Rehber</span>
-                <h2>Dear Fish Nedir ve Nasıl Çalışır?</h2>
+        <div class="modal-box">
+            <button class="close-btn" data-close="infoModal">✕</button>
+            <div class="modal-header-section">
+                <h2>dear fish nedir? 🫧</h2>
             </div>
-            <div class="modern-info-content">
-                <div class="info-step">
-                    <span class="step-num">1</span>
+            <div class="modal-steps-list">
+                <div class="step-card">
+                    <span class="step-badge">1</span>
                     <div>
-                        <strong>Akvaryumunu Kur:</strong>
-                        <p>Bir isim ve gizli şifre belirleyerek saniyeler içinde sana özel dijital akvaryumunu açarsın.</p>
+                        <strong data-i18n="step1Title">Akvaryumunu Aç</strong>
+                        <p data-i18n="step1Desc">Bir ad ve sadece senin bileceğin gizli bir şifre seç.</p>
                     </div>
                 </div>
-                <div class="info-step">
-                    <span class="step-num">2</span>
+                <div class="step-card">
+                    <span class="step-badge">2</span>
                     <div>
-                        <strong>Bağlantını Paylaş:</strong>
-                        <p>Oluşan linki arkadaşlarına gönderip sana gizli not bırakmalarını istersin.</p>
+                        <strong data-i18n="step2Title">Bağlantını İlet</strong>
+                        <p data-i18n="step2Desc">Linkini arkadaşlarına gönder, sana küçük sürprizler bıraksınlar.</p>
                     </div>
                 </div>
-                <div class="info-step">
-                    <span class="step-num">3</span>
+                <div class="step-card">
+                    <span class="step-badge">3</span>
                     <div>
-                        <strong>Gizli Canlılar ve Notlar:</strong>
-                        <p>Arkadaşların sağdaki torbadan bir canlı seçip not yazar. Canlılar akvaryumda yüzmeye başlar fakat notlar kilitli kalır.</p>
+                        <strong data-i18n="step3Title">Canlılar Yüzsün</strong>
+                        <p data-i18n="step3Desc">Bırakılan canlılar akvaryumda hemen yüzmeye başlar, notlar ise kilitli kalır.</p>
                     </div>
                 </div>
-                <div class="info-step">
-                    <span class="step-num">4</span>
+                <div class="step-card">
+                    <span class="step-badge">4</span>
                     <div>
-                        <strong>8 Canlı Tamamlandığında Çöz:</strong>
-                        <p>Akvaryumunda 8 canlı tamamlandığında "Akvaryumuma Gir" butonundan şifreni girerek tüm notları açıp okuyabilirsin!</p>
+                        <strong data-i18n="step4Title">8 Canlı Dolunca Oku</strong>
+                        <p data-i18n="step4Desc">Akvaryum dolunca şifrenle giriş yap ve sana yazılan her şeyi keşfet.</p>
                     </div>
                 </div>
             </div>
-            <button class="modern-modal-btn" data-close="infoModal">Anladım</button>
+            <button class="modal-submit-btn" data-close="infoModal" data-i18n="understoodBtn">anladım, devam et ~</button>
         </div>
     </div>
 
     <!-- MODAL 2: AKVARYUM OLUŞTUR -->
     <div class="modal" id="createModal">
         <div class="modal-box">
-            <button class="close-button" data-close="createModal">×</button>
-            <div class="modal-title">YENİ DÜNYA</div>
-            <h2>Akvaryumunu Oluştur</h2>
-            <p class="modal-text">Akvaryumuna bir isim ver ve notları sadece senin açabilmen için bir şifre belirle.</p>
+            <button class="close-btn" data-close="createModal">✕</button>
+            <div class="modal-header-section">
+                <h2 data-i18n="createModalTitle">yeni bir su altı alanı 🌊</h2>
+                <p class="modal-subtext" data-i18n="createModalSub">Akvaryumuna bir isim ve notlarını koruyacak bir şifre ver.</p>
+            </div>
 
-            <label for="aquariumName">Akvaryum Adı</label>
-            <input id="aquariumName" type="text" placeholder="Örn: elif" maxlength="40">
+            <div class="input-group">
+                <label for="aquariumName" data-i18n="tankNameLabel">Akvaryum Adı</label>
+                <input id="aquariumName" type="text" placeholder="örn: elif" maxlength="40">
+            </div>
 
-            <label for="aquariumPassword">Şifre</label>
-            <input id="aquariumPassword" type="password" placeholder="Şifreniz">
+            <div class="input-group">
+                <label for="aquariumPassword" data-i18n="passwordLabel">Şifre</label>
+                <input id="aquariumPassword" type="password" placeholder="••••••">
+            </div>
 
-            <button class="modal-button" id="createAquariumSubmit">OLUŞTUR</button>
+            <button class="modal-submit-btn" id="createAquariumSubmit" data-i18n="createSubmitBtn">oluştur ✦</button>
         </div>
     </div>
 
     <!-- MODAL 3: AKVARYUMA GİRİŞ YAP -->
     <div class="modal" id="loginModal">
         <div class="modal-box">
-            <button class="close-button" data-close="loginModal">×</button>
-            <div class="modal-title">GİRİŞ YAP</div>
-            <h2>Akvaryumuna Ulaş</h2>
-            <p class="modal-text">Akvaryum adını ve şifreni girerek canlıların taşıdığı gizli notları oku.</p>
+            <button class="close-btn" data-close="loginModal">✕</button>
+            <div class="modal-header-section">
+                <h2 data-i18n="loginModalTitle">akvaryumuna giriş yap 🗝️</h2>
+                <p class="modal-subtext" data-i18n="loginModalSub">İsim ve şifreni girerek gizli notları çöz.</p>
+            </div>
 
-            <label for="loginTankName">Akvaryum Adı</label>
-            <input id="loginTankName" type="text" placeholder="Örn: elif">
+            <div class="input-group">
+                <label for="loginTankName" data-i18n="tankNameLabel">Akvaryum Adı</label>
+                <input id="loginTankName" type="text" placeholder="örn: elif">
+            </div>
 
-            <label for="loginPassword">Şifre</label>
-            <input id="loginPassword" type="password" placeholder="Şifreniz">
+            <div class="input-group">
+                <label for="loginPassword" data-i18n="passwordLabel">Şifre</label>
+                <input id="loginPassword" type="password" placeholder="••••••">
+            </div>
 
-            <button class="modal-button" id="loginAquariumSubmit">GİRİŞ YAP</button>
+            <button class="modal-submit-btn" id="loginAquariumSubmit" data-i18n="loginSubmitBtn">giriş yap ve notları aç</button>
         </div>
     </div>
 
     <!-- MODAL 4: CANLI & NOT BIRAK -->
     <div class="modal" id="fishModal">
-        <div class="modal-box">
-            <button class="close-button" data-close="fishModal">×</button>
-            <div class="modal-title">NOTUNU BIRAK</div>
-            <h2>Akvaryuma Canlı Ekle</h2>
-            <p class="modal-text">Boş bir canlı seç ve akvaryum sahibine iletilecek notunu yaz.</p>
-
-            <div class="fish-picker-grid">
-                <button class="fish-option" data-id="1"><img src="assets/fish-1.png" alt="Palyaço Balığı"><span>Palyaço</span></button>
-                <button class="fish-option" data-id="2"><img src="assets/fish-2.png" alt="Mavi Balık"><span>Mavi Balık</span></button>
-                <button class="fish-option" data-id="3"><img src="assets/fish-3.png" alt="Çizgili Balık"><span>Çizgili</span></button>
-                <button class="fish-option" data-id="4"><img src="assets/fish-4.png" alt="Pembe Balık"><span>Pembe</span></button>
-                <button class="fish-option" data-id="5"><img src="assets/fish-5.png" alt="Koi Balığı"><span>Koi</span></button>
-                <button class="fish-option" data-id="6"><img src="assets/fish-6.png" alt="Mor Melek"><span>Mor Melek</span></button>
-                <button class="fish-option" data-id="7"><img src="assets/fish-7.png" alt="Denizatı"><span>Denizatı</span></button>
-                <button class="fish-option" data-id="8"><img src="assets/fish-8.png" alt="Denizyıldızı"><span>Yıldız</span></button>
+        <div class="modal-box fish-modal-box">
+            <button class="close-btn" data-close="fishModal">✕</button>
+            <div class="modal-header-section">
+                <h2 data-i18n="fishModalTitle">akvaryuma bir canlı bırak 🐠</h2>
+                <p class="modal-subtext" data-i18n="fishModalSub">Boş bir canlı seç ve akvaryum sahibine gizli bir not yaz.</p>
             </div>
 
-            <label for="fishSenderName">Adın / Takma Adın</label>
-            <input id="fishSenderName" type="text" placeholder="Örn: Ziyaretçi" maxlength="30">
+            <div class="fish-picker-grid">
+                <button class="fish-card-pick" data-id="1"><img src="assets/fish-1.png" alt="Palyaço"><span data-fish-name="1">Palyaço</span></button>
+                <button class="fish-card-pick" data-id="2"><img src="assets/fish-2.png" alt="Mavi"><span data-fish-name="2">Mavi</span></button>
+                <button class="fish-card-pick" data-id="3"><img src="assets/fish-3.png" alt="Çizgili"><span data-fish-name="3">Çizgili</span></button>
+                <button class="fish-card-pick" data-id="4"><img src="assets/fish-4.png" alt="Pembe"><span data-fish-name="4">Pembe</span></button>
+                <button class="fish-card-pick" data-id="5"><img src="assets/fish-5.png" alt="Koi"><span data-fish-name="5">Koi</span></button>
+                <button class="fish-card-pick" data-id="6"><img src="assets/fish-6.png" alt="Melek"><span data-fish-name="6">Melek</span></button>
+                <button class="fish-card-pick" data-id="7"><img src="assets/fish-7.png" alt="Denizatı"><span data-fish-name="7">Denizatı</span></button>
+                <button class="fish-card-pick" data-id="8"><img src="assets/fish-8.png" alt="Yıldız"><span data-fish-name="8">Yıldız</span></button>
+            </div>
 
-            <label for="fishNote">Gizli Notun</label>
-            <textarea id="fishNote" rows="3" placeholder="8 canlı dolduğunda sahibine iletilecek not..." maxlength="200"></textarea>
+            <div class="input-group">
+                <label for="fishSenderName" data-i18n="senderLabel">Kimden</label>
+                <input id="fishSenderName" type="text" placeholder="örn: bir dost" maxlength="30">
+            </div>
 
-            <button class="modal-button" id="dropFishSubmit">AKVARYUMA BIRAK</button>
+            <div class="input-group">
+                <label for="fishNote" data-i18n="noteLabel">Gizli Notun</label>
+                <textarea id="fishNote" rows="3" placeholder="8 canlı dolunca sahibine açılacak samimi bir not..." maxlength="250"></textarea>
+            </div>
+
+            <button class="modal-submit-btn" id="dropFishSubmit" data-i18n="dropFishSubmitBtn">akvaryuma bırak 🫧</button>
         </div>
     </div>
 
     <!-- MODAL 5: NOT OKUMA -->
     <div class="modal" id="readModal">
         <div class="modal-box">
-            <button class="close-button" data-close="readModal">×</button>
-            <div class="modal-title">GİZLİ NOT</div>
-            <h2 id="readSenderName">Kimden</h2>
-            <p class="modal-quote" id="readNoteText">"Not metni"</p>
-            <span class="modal-date" id="readNoteDate">01.01.2026</span>
+            <button class="close-btn" data-close="readModal">✕</button>
+            <div class="modal-header-section">
+                <h2 id="readSenderName">Kimden</h2>
+            </div>
+            <div class="handwritten-quote-box">
+                <p id="readNoteText">"Not metni"</p>
+            </div>
+            <span class="read-date-text" id="readNoteDate">01.01.2026</span>
         </div>
     </div>
 
