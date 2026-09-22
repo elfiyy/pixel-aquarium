@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. CANLI API & DİL SÖZLÜĞÜ (TR / EN - DEAR FISH KİMLİĞİ)
-   ========================================================================== */
+
 const API_BASE = "https://dearfish.onrender.com/api/tanks";
 
 const TRANSLATIONS = {
@@ -140,9 +138,7 @@ function applyLanguage() {
     renderTank();
 }
 
-/* ==========================================================================
-   2. TÜR AYARLARI & DEĞİŞKENLER
-   ========================================================================== */
+
 const SPECIES_CONFIG = [
     { id: 1, src: "assets/fish-1.png", type: "swim" },
     { id: 2, src: "assets/fish-2.png", type: "swim" },
@@ -186,9 +182,7 @@ const dropFishSubmit = document.getElementById("dropFishSubmit");
 const closeButtons = document.querySelectorAll("[data-close]");
 const fishOptions = document.querySelectorAll(".fish-card-pick");
 
-/* ==========================================================================
-   3. VERİ YÜKLEME & EKRANA ÇİZME
-   ========================================================================== */
+
 async function loadTank() {
     if (!currentTankCode) {
         tankTitle.innerText = t("defaultTitle");
@@ -248,7 +242,7 @@ function renderTank() {
             el.className = `fish-sprite fish-type-${meta.type}`;
             el.id = `fish-node-${fish.id}`;
 
-            // Denizyıldızı CSS'teki bottom: 22% kuralıyla kumun üstüne oturur
+            
             if (meta.type === "starfish") {
                 el.style.left = `47%`;
             } else {
@@ -256,7 +250,7 @@ function renderTank() {
                 el.style.top = `${fish.y}%`;
             }
 
-            // Her balığa bağımsız derinlik ve hız
+            
             if (!fish.speedX) {
                 fish.speedX = 0.025 + ((fish.fishId * 7) % 5) * 0.006;
                 fish.speedY = (((fish.fishId * 13) % 7) - 3) * 0.004;
@@ -270,7 +264,7 @@ function renderTank() {
             img.alt = fish.sender;
             el.appendChild(img);
 
-            // Not Okuma
+           
             el.addEventListener("click", () => {
                 if (!isOwnerAuthenticated) {
                     alert(t("onlyOwnerRead"));
@@ -289,9 +283,7 @@ function renderTank() {
     }
 }
 
-/* ==========================================================================
-   4. YÜZME MOTORU
-   ========================================================================== */
+
 function movementLoop() {
     if (currentTank && currentTank.fishes) {
         currentTank.fishes.forEach(fish => {
@@ -299,10 +291,10 @@ function movementLoop() {
             const el = document.getElementById(`fish-node-${fish.id}`);
             if (!el) return;
 
-            // Denizyıldızı kumda dinlenir
+           
             if (meta.type === "starfish") return;
 
-            // Denizatı salınımı
+            
             if (meta.type === "seahorse") {
                 const osc = Math.sin(Date.now() / 700) * 0.4;
                 el.style.top = `${fish.y + osc}%`;
@@ -328,9 +320,7 @@ function movementLoop() {
     requestAnimationFrame(movementLoop);
 }
 
-/* ==========================================================================
-   5. ETKİLEŞİMLER
-   ========================================================================== */
+
 langToggleBtn.addEventListener("click", () => {
     currentLang = currentLang === "tr" ? "en" : "tr";
     localStorage.setItem("dearfish_lang", currentLang);
